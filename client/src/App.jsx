@@ -13,6 +13,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import SelectCrops from './pages/SelectCrops';
 import Dashboard from './pages/Dashboard';
+import AdminDashboard from './pages/AdminDashboard';
 import Scan from './pages/Scan';
 import MapPage from './pages/MapPage';
 import Experts from './pages/Experts';
@@ -47,7 +48,9 @@ function ProtectedLayout() {
 
 function AuthGuard({ children }) {
   const { user } = useAuth();
-  if (user) return <Navigate to="/dashboard" replace />;
+  if (user) {
+    return <Navigate to={user.role === 'officer' ? '/admin-dashboard' : '/dashboard'} replace />;
+  }
   return children;
 }
 
@@ -77,6 +80,7 @@ export default function App() {
             {/* Protected app routes */}
             <Route element={<ProtectedLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/admin-dashboard" element={<AdminDashboard />} />
               <Route path="/scan" element={<Scan />} />
               <Route path="/map" element={<MapPage />} />
               <Route path="/experts" element={<Experts />} />

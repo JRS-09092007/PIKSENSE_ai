@@ -17,6 +17,15 @@ export const translations = {
     all_diseases: "All Diseases",
     view_all: "View All",
     
+    // Roles & Admin
+    role_farmer: "Farmer",
+    role_officer: "Government Administrative Officer",
+    login_as_farmer: "Login as Farmer",
+    login_as_officer: "Login as Govt Officer",
+    officer_portal: "Govt Officer Portal",
+    admin_dashboard_title: "Administrative Officer Operations Center",
+    admin_dashboard_subtitle: "State Agriculture Outbreak Intelligence, Farmer Complaint Tracking & Emergency Relief Portal",
+    
     // Nav
     nav_home: "Home",
     nav_scan: "Scan",
@@ -24,6 +33,7 @@ export const translations = {
     nav_experts: "Experts",
     nav_library: "Library",
     nav_profile: "Profile",
+    nav_admin: "Govt Admin Portal",
     
     // Onboarding
     onboarding_slide1_title: "Scan Your Crop",
@@ -176,7 +186,6 @@ export const translations = {
     after: "After (Treated)",
     full_recovery: "Full Recovery State",
     consult_doctor_for: "Consult Doctor for",
-    solution: "Solution",
     spread_conditions: "Spread Conditions",
     
     // Voice
@@ -226,6 +235,15 @@ export const translations = {
     all_diseases: "सभी बीमारियां",
     view_all: "सभी देखें",
     
+    // Roles & Admin
+    role_farmer: "किसान",
+    role_officer: "शासकीय प्रशासकीय अधिकारी",
+    login_as_farmer: "किसान पोर्टल लॉगिन",
+    login_as_officer: "सरकारी अधिकारी लॉगिन",
+    officer_portal: "सरकारी अधिकारी पोर्टल",
+    admin_dashboard_title: "प्रशासकीय अधिकारी संचालन केंद्र",
+    admin_dashboard_subtitle: "राज्य कृषि प्रकोप प्रबंधन, किसान शिकायत निवारण एवं राहत कोष पोर्टल",
+
     // Nav
     nav_home: "होम",
     nav_scan: "स्कैन",
@@ -233,7 +251,8 @@ export const translations = {
     nav_experts: "विशेषज्ञ",
     nav_library: "पुस्तकालय",
     nav_profile: "प्रोफ़ाइल",
-    
+    nav_admin: "सरकारी अधिकारी पोर्टल",
+
     // Onboarding
     onboarding_slide1_title: "अपनी फसल स्कैन करें",
     onboarding_slide1_desc: "अपने पौधे की फोटो लें। हमारा AI तुरंत बीमारी पहचानेगा।",
@@ -435,6 +454,15 @@ export const translations = {
     all_diseases: "सर्व आजार",
     view_all: "सर्व पहा",
     
+    // Roles & Admin
+    role_farmer: "शेतकरी",
+    role_officer: "शासकीय प्रशासकीय अधिकारी",
+    login_as_farmer: "शेतकरी पोर्टल लॉगिन",
+    login_as_officer: "शासकीय अधिकारी लॉगिन",
+    officer_portal: "शासकीय अधिकारी पोर्टल",
+    admin_dashboard_title: "प्रशासकीय अधिकारी संचालन केंद्र",
+    admin_dashboard_subtitle: "राज्य पीक रोग व्यवस्थापन, शेतकरी तक्रार निवारण आणि मदत निधी पोर्टल",
+
     // Nav
     nav_home: "होम",
     nav_scan: "स्कॅन",
@@ -442,7 +470,8 @@ export const translations = {
     nav_experts: "तज्ञ",
     nav_library: "ग्रंथालय",
     nav_profile: "प्रोफाइल",
-    
+    nav_admin: "शासकीय अधिकारी पोर्टल",
+
     // Onboarding
     onboarding_slide1_title: "तुमचे पीक स्कॅन करा",
     onboarding_slide1_desc: "तुमच्या रोपाचा फोटो घ्या. आमचा AI लगेच रोग ओळखेल.",

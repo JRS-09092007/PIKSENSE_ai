@@ -1,18 +1,21 @@
 import { NavLink } from 'react-router-dom';
-import { Home, ScanLine, Map, Users, BookOpen, User } from 'lucide-react';
+import { Home, ScanLine, Map, Users, Building2, User } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-
-const navItems = [
-  { to: '/dashboard', icon: Home, label: 'nav_home' },
-  { to: '/scan', icon: ScanLine, label: 'nav_scan', highlight: true },
-  { to: '/map', icon: Map, label: 'nav_map' },
-  { to: '/experts', icon: Users, label: 'nav_experts' },
-  { to: '/library', icon: BookOpen, label: 'nav_library' },
-  { to: '/profile', icon: User, label: 'nav_profile' },
-];
+import { useAuth } from '../context/AuthContext';
 
 export default function BottomNav() {
   const { t } = useApp();
+  const { user } = useAuth();
+  const isOfficer = user?.role === 'officer';
+
+  const navItems = [
+    { to: isOfficer ? '/admin-dashboard' : '/dashboard', icon: isOfficer ? Building2 : Home, label: isOfficer ? 'nav_admin' : 'nav_home' },
+    { to: '/scan', icon: ScanLine, label: 'nav_scan', highlight: true },
+    { to: '/map', icon: Map, label: 'nav_map' },
+    { to: '/experts', icon: Users, label: 'nav_experts' },
+    { to: '/profile', icon: User, label: 'nav_profile' },
+  ];
+
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bottom-nav glass border-t border-white/10">
       <div className="flex justify-around items-center h-[68px] max-w-lg mx-auto px-2">
