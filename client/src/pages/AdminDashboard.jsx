@@ -14,13 +14,11 @@ export default function AdminDashboard() {
   const [districtFilter, setDistrictFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Government Advisory Broadcast State
   const [advisoryTitle, setAdvisoryTitle] = useState('');
   const [advisoryBody, setAdvisoryBody] = useState('');
   const [targetDistrict, setTargetDistrict] = useState('Nashik');
   const [isBroadcasting, setIsBroadcasting] = useState(false);
 
-  // Initial Farmer Complaints & Outbreak Reports Database
   const [complaints, setComplaints] = useState([
     {
       id: 'CMP-2024-8801',
@@ -89,13 +87,11 @@ export default function AdminDashboard() {
     }
   ]);
 
-  // Recent Government Advisories Broadcasted
   const [broadcasts, setBroadcasts] = useState([
     { id: 1, title: 'Emergency Fungicide Subsidy Issued', district: 'Nashik', date: '2026-09-02', recipients: 1420 },
     { id: 2, title: 'High Humidity Rice Blast Warning', district: 'Ratnagiri & Konkan', date: '2026-09-01', recipients: 3850 }
   ]);
 
-  // Status Action Handlers
   const handleUpdateStatus = (id, newStatus, actionText) => {
     setComplaints(prev => prev.map(c => {
       if (c.id === id) {
@@ -121,7 +117,7 @@ export default function AdminDashboard() {
       setAdvisoryTitle('');
       setAdvisoryBody('');
       setIsBroadcasting(false);
-      showToast(`Government Official Advisory Broadcasted to 2,450 farmers in ${targetDistrict}!`, 'success');
+      showToast(`Government Advisory Broadcasted to 2,450 farmers in ${targetDistrict}!`, 'success');
     }, 1200);
   };
 
@@ -218,16 +214,16 @@ export default function AdminDashboard() {
 
         <div className="glass-card p-4 sm:p-5 border border-white/5 space-y-1">
           <p className="text-xs font-extrabold text-surface-400 uppercase tracking-wider flex items-center gap-1.5">
-            <ShieldCheck size={14} className="text-primary-400" /> Case Resolution Rate
+            <ShieldCheck size={14} className="text-emerald-400" /> Case Resolution Rate
           </p>
-          <p className="text-2xl sm:text-3xl font-extrabold text-primary-400 font-heading">94.2%</p>
-          <p className="text-[11px] text-primary-300 font-semibold">Avg Response: &lt; 24 Hrs</p>
+          <p className="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-heading">94.2%</p>
+          <p className="text-[11px] text-emerald-300 font-semibold">Avg Response: &lt; 24 Hrs</p>
         </div>
       </div>
 
       {/* Main Administrative Workstation Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left 2-Cols: Farmer Complaints & Emergency Outbreak Queue */}
+        {/* Left 2-Cols: Farmer Complaints Queue */}
         <div className="lg:col-span-2 space-y-4">
           <div className="glass-card p-5 border border-emerald-500/20 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
@@ -291,13 +287,12 @@ export default function AdminDashboard() {
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-surface-400 font-medium flex items-center gap-1">
-                          <MapPin size={12} className="text-primary-400" /> {c.district}
+                          <MapPin size={12} className="text-emerald-400" /> {c.district}
                         </span>
                         {getStatusBadge(c.status)}
                       </div>
                     </div>
 
-                    {/* Complaint Data Body */}
                     <div className="p-3 rounded-2xl bg-white/3 border border-white/5 space-y-1.5 text-xs">
                       <div className="flex items-center justify-between text-surface-300">
                         <p><span className="font-bold text-white">Crop Infected:</span> {c.crop.toUpperCase()} • <span className="font-bold text-danger-300">{c.disease}</span></p>
@@ -311,7 +306,6 @@ export default function AdminDashboard() {
                       )}
                     </div>
 
-                    {/* Official Action Controls */}
                     <div className="flex flex-wrap gap-2 pt-1">
                       <button
                         onClick={() => handleUpdateStatus(c.id, 'inspection', `KVK Agronomist Team #2 dispatched to ${c.district} site.`)}
@@ -342,9 +336,8 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Right 1-Col: Official Government Broadcast System */}
+        {/* Right 1-Col: Broadcast Advisory Panel */}
         <div className="space-y-6">
-          {/* Government Emergency Broadcast Panel */}
           <div className="glass-card p-5 border border-amber-500/30 space-y-4 shadow-xl">
             <div>
               <h3 className="font-extrabold text-white text-base font-heading flex items-center gap-2">
@@ -405,10 +398,9 @@ export default function AdminDashboard() {
             </form>
           </div>
 
-          {/* Broadcast History Log */}
           <div className="glass-card p-5 border border-white/10 space-y-3">
             <h4 className="text-xs font-extrabold text-surface-400 uppercase tracking-wider flex items-center gap-1.5">
-              <FileText size={14} className="text-primary-400" /> Recent Official Broadcasts
+              <FileText size={14} className="text-emerald-400" /> Recent Official Broadcasts
             </h4>
             <div className="space-y-2">
               {broadcasts.map(b => (
@@ -417,7 +409,7 @@ export default function AdminDashboard() {
                     <p className="font-extrabold text-white">{b.title}</p>
                     <span className="text-[10px] text-surface-400">{b.date}</span>
                   </div>
-                  <p className="text-surface-300 text-[11px]">District: <span className="text-amber-300 font-bold">{b.district}</span> • Sent to <span className="text-primary-300 font-bold">{b.recipients} Farmers</span></p>
+                  <p className="text-surface-300 text-[11px]">District: <span className="text-amber-300 font-bold">{b.district}</span> • Sent to <span className="text-emerald-300 font-bold">{b.recipients} Farmers</span></p>
                 </div>
               ))}
             </div>

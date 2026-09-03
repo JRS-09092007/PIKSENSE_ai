@@ -1,7 +1,7 @@
 import { useAuth } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
 import LanguageSwitcher from './LanguageSwitcher';
-import { MapPin, Bell, Activity, Sparkles, Mic, AlertTriangle, UserCheck, CloudRain, CheckCheck, X } from 'lucide-react';
+import { MapPin, Bell, Activity, Sparkles, Mic, AlertTriangle, UserCheck, CloudRain, CheckCheck, X, Building2 } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 export default function Header() {
@@ -10,6 +10,7 @@ export default function Header() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifFilter, setNotifFilter] = useState('all');
   const notifRef = useRef(null);
+  const isOfficer = user?.role === 'officer';
 
   const [alerts, setAlerts] = useState([
     { id: 1, type: 'outbreak', title: 'Anthracnose Outbreak Alert', text: 'Anthracnose detected 12km away in Ratnagiri. Spray Neem oil early.', time: '10m ago', unread: true },
@@ -18,7 +19,6 @@ export default function Header() {
     { id: 4, type: 'outbreak', title: 'Rice Blast Alert', text: 'Rice Blast reported in nearby Kolhapur district.', time: '2d ago', unread: false }
   ]);
 
-  // Click outside to close notifications popover
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (notifRef.current && !notifRef.current.contains(event.target)) {
@@ -50,41 +50,49 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-30 w-full glass-header px-4 sm:px-8 py-3 flex items-center justify-between">
-      {/* Brand & Location info */}
+      {/* Brand Logo & Location Metadata */}
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-primary-400 via-primary-500 to-emerald-700 flex items-center justify-center text-white shadow-md glow-emerald shrink-0">
+        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-md glow-emerald shrink-0 border border-white/20">
           <Sparkles size={20} />
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-extrabold text-white text-base tracking-tight font-heading">pikSense <span className="text-primary-400">AI</span></h1>
-            <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-primary-500/15 text-primary-300 border border-primary-500/30 text-xs font-bold">
-              <Activity size={12} className="text-primary-400 animate-pulse" /> 88% {t('health_index')}
-            </span>
+            <h1 className="font-extrabold text-white text-base tracking-tight font-heading">
+              pikSense <span className="text-emerald-400">AI</span>
+            </h1>
+            {isOfficer ? (
+              <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold">
+                <Building2 size={12} className="text-amber-400" /> Govt Officer Portal
+              </span>
+            ) : (
+              <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
+                <Activity size={12} className="text-emerald-400 animate-pulse" /> 88% {t('health_index')}
+              </span>
+            )}
           </div>
           <p className="text-xs text-surface-400 flex items-center gap-1 font-medium mt-0.5">
-            <MapPin size={12} className="text-primary-400" /> {user?.region || 'Ratnagiri'}, {user?.state || 'Maharashtra'}
+            <MapPin size={12} className="text-emerald-400" /> {user?.region || 'Ratnagiri'}, {user?.state || 'Maharashtra'}
           </p>
         </div>
       </div>
 
-      {/* Header Actions */}
+      {/* Header Controls Bar */}
       <div className="flex items-center gap-2 sm:gap-3">
         {/* Voice Assistant Header Trigger Button */}
         <button
           onClick={() => setIsVoiceOpen(true)}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-primary-500/15 hover:bg-primary-500/25 text-primary-300 font-bold border border-primary-500/30 text-xs transition-all active:scale-95 glow-emerald">
-          <Mic size={15} className="text-primary-400" />
+          className="flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 font-bold border border-emerald-500/30 text-xs transition-all active:scale-95 glow-emerald">
+          <Mic size={15} className="text-emerald-400 animate-pulse" />
           <span className="hidden sm:inline">{t('ask_voice')}</span>
         </button>
 
-        {/* Notifications Bell with Click Outside Dismissal */}
+        {/* Notifications Popover Bell Icon */}
         <div ref={notifRef} className="relative">
           <button
             onClick={() => setShowNotifications(!showNotifications)}
             className={`w-9 h-9 sm:w-10 sm:h-10 rounded-2xl flex items-center justify-center transition-all relative border ${
               showNotifications
-                ? 'bg-primary-500/25 text-primary-300 border-primary-500/40 glow-emerald'
+                ? 'bg-emerald-500/25 text-emerald-300 border-emerald-500/40 glow-emerald'
                 : 'bg-white/5 hover:bg-white/10 text-surface-300 border-white/10'
             }`}>
             <Bell size={18} />
@@ -98,12 +106,12 @@ export default function Header() {
             )}
           </button>
 
-          {/* Notification Popover Drawer */}
+          {/* Notifications Popover Modal */}
           {showNotifications && (
             <div className="absolute right-0 mt-3 w-80 sm:w-96 glass-card p-4 z-50 animate-slide-up shadow-2xl border border-emerald-500/30">
               <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-xl bg-primary-500/20 flex items-center justify-center text-primary-400">
+                  <div className="w-7 h-7 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
                     <Bell size={15} />
                   </div>
                   <h3 className="font-extrabold text-white text-sm font-heading">
@@ -117,7 +125,7 @@ export default function Header() {
                 </div>
                 <div className="flex items-center gap-1.5">
                   <button onClick={markAllRead} title="Mark all as read"
-                    className="p-1.5 rounded-xl hover:bg-white/10 text-surface-400 hover:text-primary-300 transition-colors text-xs flex items-center gap-1">
+                    className="p-1.5 rounded-xl hover:bg-white/10 text-surface-400 hover:text-emerald-300 transition-colors text-xs flex items-center gap-1">
                     <CheckCheck size={14} />
                   </button>
                   <button onClick={() => setShowNotifications(false)}
@@ -133,7 +141,7 @@ export default function Header() {
                   <button key={cat} onClick={() => setNotifFilter(cat)}
                     className={`px-3 py-1 rounded-xl text-[11px] font-bold capitalize transition-colors ${
                       notifFilter === cat
-                        ? 'bg-primary-500/20 text-primary-300 border border-primary-500/30'
+                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
                         : 'text-surface-400 hover:text-surface-200'
                     }`}>
                     {cat}
@@ -152,7 +160,7 @@ export default function Header() {
                     }}
                     className={`p-3 rounded-2xl transition-all cursor-pointer border flex items-start gap-3 ${
                       alert.unread
-                        ? 'bg-primary-500/10 border-primary-500/25 hover:bg-primary-500/15'
+                        ? 'bg-emerald-500/10 border-emerald-500/25 hover:bg-emerald-500/15'
                         : 'bg-white/3 border-white/5 hover:bg-white/8 opacity-80'
                     }`}>
                     <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center shrink-0 border border-white/5 mt-0.5">
@@ -172,7 +180,7 @@ export default function Header() {
           )}
         </div>
 
-        {/* Language Selector */}
+        {/* Multilingual Selector */}
         <LanguageSwitcher compact />
       </div>
     </header>
