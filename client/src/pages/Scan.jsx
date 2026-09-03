@@ -220,7 +220,8 @@ export default function Scan() {
 
           {/* Primary Detection Card */}
           {results.detections.map((d, i) => {
-            const k = d.knowledge;
+            const k = getLocalizedDisease(d.knowledge || d, language);
+            const localizedClassName = k.display_name || d.class_name;
             return (
               <div key={i} className={`glass-card p-6 border-2 ${getConfBorder(d.confidence)} space-y-6 shadow-2xl`}>
                 {/* Header info */}
@@ -231,7 +232,7 @@ export default function Scan() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h2 className="text-2xl font-extrabold text-white font-heading">{d.class_name}</h2>
+                        <h2 className="text-2xl font-extrabold text-white font-heading">{localizedClassName}</h2>
                         <span className="px-2.5 py-0.5 rounded-full bg-danger-500/20 text-danger-300 text-xs font-bold border border-danger-500/30">
                           {t('detected')}
                         </span>

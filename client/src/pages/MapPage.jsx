@@ -5,11 +5,10 @@ import { hotspotReports, cropsList } from '../utils/diseaseData';
 import { MapPin, Filter, AlertTriangle, Calendar, ShieldAlert, Activity, Plus, Navigation, Target } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 
-function MapFlyTo({ center }) {
-  const { useMap } = require('react-leaflet');
+function MapFlyTo({ center, useMap }) {
   const map = useMap();
   useEffect(() => {
-    if (center) {
+    if (center && map) {
       map.flyTo(center, 11, { duration: 1.5 });
     }
   }, [center, map]);
@@ -161,9 +160,10 @@ export default function MapPage() {
       {/* Interactive Leaflet Map Container */}
       <div className="glass-card overflow-hidden border border-emerald-500/30 shadow-2xl relative" style={{ height: '440px' }}>
         {mapLoaded && LeafletComponents ? (() => {
-          const { MapContainer, TileLayer, CircleMarker, Circle, Popup } = LeafletComponents;
+          const { MapContainer, TileLayer, CircleMarker, Circle, Popup, useMap } = LeafletComponents;
           return (
             <MapContainer center={mapCenter} zoom={10} style={{ height: '100%', width: '100%', borderRadius: '24px' }}>
+              <MapFlyTo center={mapCenter} useMap={useMap} />
               <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" attribution='&copy; CartoDB &copy; OpenStreetMap' />
 
               {/* User Live GPS Marker */}

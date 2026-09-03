@@ -174,9 +174,9 @@ export default function Dashboard() {
           </button>
         </div>
 
-        {scans.length > 0 ? (
+        {(scans || []).length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {scans.slice(0, 4).map((s, idx) => (
+            {(scans || []).slice(0, 4).map((s, idx) => (
               <div key={idx} className="p-4 rounded-2xl bg-white/3 border border-white/5 flex items-center gap-3.5 card-hover">
                 <img src={s.image_url} alt="Scan" className="w-14 h-14 rounded-xl object-cover border border-white/10 shrink-0" />
                 <div className="flex-1 min-w-0">

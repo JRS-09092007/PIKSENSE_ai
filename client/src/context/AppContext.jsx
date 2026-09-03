@@ -42,7 +42,7 @@ export function AppProvider({ children }) {
 
   return (
     <AppContext.Provider value={{
-      language, setLanguage, t, scanHistory, setScanHistory, addScan,
+      language, setLanguage, t, scans: scanHistory, scanHistory, setScanHistory, addScan,
       onboardingDone, completeOnboarding, resetOnboarding, toast, showToast,
       isVoiceOpen, setIsVoiceOpen
     }}>
