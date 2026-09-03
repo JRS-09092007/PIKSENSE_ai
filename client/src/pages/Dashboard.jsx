@@ -56,49 +56,71 @@ export default function Dashboard() {
       </div>
 
       {/* Quick Action Hub Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {/* Scan Leaf */}
         <button
           onClick={() => navigate('/scan')}
-          className="glass-card p-4 sm:p-5 text-left border border-emerald-500/30 hover:border-emerald-400 transition-all card-hover group relative overflow-hidden">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-300 mb-3 group-hover:scale-110 transition-transform glow-emerald">
-            <ScanLine size={24} />
+          className="glass-card p-4 text-left border border-emerald-500/30 hover:border-emerald-400 transition-all card-hover group">
+          <div className="w-10 h-10 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-300 mb-2 group-hover:scale-110 transition-transform glow-emerald">
+            <ScanLine size={20} />
           </div>
-          <p className="font-extrabold text-white text-sm font-heading group-hover:text-emerald-300">{t('scan_plant')}</p>
-          <p className="text-xs text-surface-400 mt-0.5">{t('instant_ai_diagnosis')}</p>
+          <p className="font-extrabold text-white text-xs font-heading group-hover:text-emerald-300">Scan Crop</p>
+          <p className="text-[10px] text-surface-400 mt-0.5">AI Disease Scan</p>
         </button>
 
-        {/* Ask Voice AI */}
+        {/* Pest Traps */}
         <button
-          onClick={() => setIsVoiceOpen(true)}
-          className="glass-card p-4 sm:p-5 text-left border border-cyan-500/30 hover:border-cyan-400 transition-all card-hover group relative overflow-hidden">
-          <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-300 mb-3 group-hover:scale-110 transition-transform">
-            <Mic size={24} className="animate-pulse" />
+          onClick={() => navigate('/pest-sensors')}
+          className="glass-card p-4 text-left border border-amber-500/30 hover:border-amber-400 transition-all card-hover group">
+          <div className="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-300 mb-2 group-hover:scale-110 transition-transform">
+            <Activity size={20} />
           </div>
-          <p className="font-extrabold text-white text-sm font-heading group-hover:text-cyan-300">{t('ask_voice')}</p>
-          <p className="text-xs text-surface-400 mt-0.5">{t('multilingual_advice')}</p>
+          <p className="font-extrabold text-white text-xs font-heading group-hover:text-amber-300">Pest Traps</p>
+          <p className="text-[10px] text-surface-400 mt-0.5">Sensor Counts</p>
         </button>
 
-        {/* Consult Experts */}
+        {/* Risk Matrix */}
         <button
-          onClick={() => navigate('/experts')}
-          className="glass-card p-4 sm:p-5 text-left border border-amber-500/30 hover:border-amber-400 transition-all card-hover group relative overflow-hidden">
-          <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-300 mb-3 group-hover:scale-110 transition-transform">
-            <Users size={24} />
+          onClick={() => navigate('/risk-intelligence')}
+          className="glass-card p-4 text-left border border-cyan-500/30 hover:border-cyan-400 transition-all card-hover group">
+          <div className="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-300 mb-2 group-hover:scale-110 transition-transform">
+            <Thermometer size={20} />
           </div>
-          <p className="font-extrabold text-white text-sm font-heading group-hover:text-amber-300">{t('consult_expert')}</p>
-          <p className="text-xs text-surface-400 mt-0.5">{t('verified_doctors')}</p>
+          <p className="font-extrabold text-white text-xs font-heading group-hover:text-cyan-300">Risk Matrix</p>
+          <p className="text-[10px] text-surface-400 mt-0.5">5-Factor Intelligence</p>
         </button>
 
         {/* Hotspot Map */}
         <button
           onClick={() => navigate('/map')}
-          className="glass-card p-4 sm:p-5 text-left border border-rose-500/30 hover:border-rose-400 transition-all card-hover group relative overflow-hidden">
-          <div className="w-12 h-12 rounded-2xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-300 mb-3 group-hover:scale-110 transition-transform">
-            <AlertTriangle size={24} />
+          className="glass-card p-4 text-left border border-rose-500/30 hover:border-rose-400 transition-all card-hover group">
+          <div className="w-10 h-10 rounded-2xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-300 mb-2 group-hover:scale-110 transition-transform">
+            <AlertTriangle size={20} />
           </div>
-          <p className="font-extrabold text-white text-sm font-heading group-hover:text-rose-300">{t('hotspot_map')}</p>
-          <p className="text-xs text-surface-400 mt-0.5">{t('view_alerts')}</p>
+          <p className="font-extrabold text-white text-xs font-heading group-hover:text-rose-300">Outbreak Map</p>
+          <p className="text-[10px] text-surface-400 mt-0.5">District Hotspots</p>
+        </button>
+
+        {/* Consult Experts */}
+        <button
+          onClick={() => navigate('/experts')}
+          className="glass-card p-4 text-left border border-blue-500/30 hover:border-blue-400 transition-all card-hover group">
+          <div className="w-10 h-10 rounded-2xl bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-blue-300 mb-2 group-hover:scale-110 transition-transform">
+            <Users size={20} />
+          </div>
+          <p className="font-extrabold text-white text-xs font-heading group-hover:text-blue-300">Ask Expert</p>
+          <p className="text-[10px] text-surface-400 mt-0.5">Krishi Sevak Advice</p>
+        </button>
+
+        {/* Follow-up Timeline */}
+        <button
+          onClick={() => navigate('/followup-timeline')}
+          className="glass-card p-4 text-left border border-purple-500/30 hover:border-purple-400 transition-all card-hover group">
+          <div className="w-10 h-10 rounded-2xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-300 mb-2 group-hover:scale-110 transition-transform">
+            <ShieldCheck size={20} />
+          </div>
+          <p className="font-extrabold text-white text-xs font-heading group-hover:text-purple-300">Follow-up</p>
+          <p className="text-[10px] text-surface-400 mt-0.5">Recovery Track</p>
         </button>
       </div>
 

@@ -1,15 +1,21 @@
 import { useAuth } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
+import { useNavigate } from 'react-router-dom';
 import LanguageSwitcher from './LanguageSwitcher';
-import { MapPin, Bell, Activity, Sparkles, Mic, AlertTriangle, UserCheck, CloudRain, CheckCheck, X, Building2 } from 'lucide-react';
+import { MapPin, Bell, Activity, Sparkles, Mic, AlertTriangle, UserCheck, CloudRain, CheckCheck, X, Building2, ChevronDown } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 export default function Header() {
-  const { user } = useAuth();
+  const { user, switchRole } = useAuth();
   const { t, showToast, setIsVoiceOpen } = useApp();
+  const navigate = useNavigate();
+  
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showRoleMenu, setShowRoleMenu] = useState(false);
   const [notifFilter, setNotifFilter] = useState('all');
+  
   const notifRef = useRef(null);
+  const roleRef = useRef(null);
   const isOfficer = user?.role === 'officer';
 
   const [alerts, setAlerts] = useState([
@@ -24,6 +30,9 @@ export default function Header() {
       if (notifRef.current && !notifRef.current.contains(event.target)) {
         setShowNotifications(false);
       }
+      if (roleRef.current && !roleRef.current.contains(event.target)) {
+        setShowRoleMenu(false);
+      }
     };
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('touchstart', handleClickOutside);
@@ -32,6 +41,13 @@ export default function Header() {
       document.removeEventListener('touchstart', handleClickOutside);
     };
   }, []);
+
+  const handleSelectRole = (newRole, navigatePath) => {
+    switchRole(newRole);
+    setShowRoleMenu(false);
+    showToast(`Switched active portal view to ${newRole === 'officer' ? 'Govt Agriculture Officer' : newRole === 'extension' ? 'Field Extension Officer' : 'Farmer'}`, 'info');
+    navigate(navigatePath);
+  };
 
   const unreadCount = alerts.filter(a => a.unread).length;
 
@@ -176,6 +192,75 @@ export default function Header() {
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+        </div>
+
+        {/* Google Classroom-style Role Switcher Dropdown */}
+        <div className="relative" ref={roleRef}>
+          <button
+            onClick={() => setShowRoleMenu(!showRoleMenu)}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 text-xs font-extrabold transition-all shadow-md active:scale-95"
+            title="Switch Portal Role (Google Classroom Style)">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <span className="capitalize flex items-center gap-1">
+              {user?.role === 'officer' ? '🏛️ Govt Officer View' : user?.role === 'extension' ? '🧑‍🌾 Field Officer View' : '🌾 Farmer View'}
+            </span>
+            <ChevronDown size={14} className={`transition-transform duration-200 ${showRoleMenu ? 'rotate-180' : ''}`} />
+          </button>
+
+          {/* Role Selection Popover */}
+          {showRoleMenu && (
+            <div className="absolute right-0 mt-2 w-72 glass-card p-3 z-50 animate-slide-up shadow-2xl border border-emerald-500/40 space-y-2">
+              <div className="pb-2 border-b border-white/10">
+                <p className="text-xs font-extrabold text-white font-heading">Switch Active Portal Role</p>
+                <p className="text-[10px] text-slate-400">Like Google Classroom (Farmer ↔ Officer)</p>
+              </div>
+
+              {/* Farmer Button */}
+              <button
+                onClick={() => handleSelectRole('farmer', '/dashboard')}
+                className={`w-full p-2.5 rounded-xl text-left border transition-all flex items-center gap-3 ${
+                  user?.role === 'farmer'
+                    ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300'
+                    : 'bg-white/3 border-white/5 text-slate-300 hover:bg-white/8'
+                }`}>
+                <span className="text-xl">🌾</span>
+                <div>
+                  <p className="text-xs font-extrabold text-white font-heading">Farmer Portal (शेतकरी)</p>
+                  <p className="text-[10px] text-slate-400">Scan crops, weather alerts & advisories</p>
+                </div>
+              </button>
+
+              {/* Extension Worker Button */}
+              <button
+                onClick={() => handleSelectRole('extension', '/extension-dashboard')}
+                className={`w-full p-2.5 rounded-xl text-left border transition-all flex items-center gap-3 ${
+                  user?.role === 'extension'
+                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
+                    : 'bg-white/3 border-white/5 text-slate-300 hover:bg-white/8'
+                }`}>
+                <span className="text-xl">🧑‍🌾</span>
+                <div>
+                  <p className="text-xs font-extrabold text-white font-heading">Field Officer (कृषी सेवक)</p>
+                  <p className="text-[10px] text-slate-400">Field triage & farmer case visits</p>
+                </div>
+              </button>
+
+              {/* Department Officer Button */}
+              <button
+                onClick={() => handleSelectRole('officer', '/admin-dashboard')}
+                className={`w-full p-2.5 rounded-xl text-left border transition-all flex items-center gap-3 ${
+                  user?.role === 'officer'
+                    ? 'bg-amber-500/20 border-amber-500/40 text-amber-300'
+                    : 'bg-white/3 border-white/5 text-slate-300 hover:bg-white/8'
+                }`}>
+                <span className="text-xl">🏛️</span>
+                <div>
+                  <p className="text-xs font-extrabold text-white font-heading">Govt Agriculture Officer</p>
+                  <p className="text-[10px] text-slate-400">Track state farmer complaints & hotspots</p>
+                </div>
+              </button>
             </div>
           )}
         </div>
