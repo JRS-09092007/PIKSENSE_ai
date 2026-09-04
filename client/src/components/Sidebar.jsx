@@ -58,10 +58,10 @@ export default function Sidebar() {
         </div>
         <div>
           <h1 className="text-lg font-extrabold text-white tracking-tight font-heading flex items-center gap-1">
-            MahaCrop <span className="text-emerald-400">AI</span>
+            PikSense <span className="text-emerald-400">AI</span>
           </h1>
           <p className="text-[10px] text-emerald-300/80 font-bold uppercase tracking-wider">
-            SIH 2024 • Govt of Maha
+            SIH 2026 • Govt of Maha
           </p>
         </div>
       </div>

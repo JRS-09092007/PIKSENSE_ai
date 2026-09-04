@@ -7,14 +7,14 @@ export default function FollowUpTimeline() {
 
   const [activeCase] = useState({
     id: 'CASE-2026-00421',
-    crop: 'Soybean (सोयाबीन)',
-    disease: 'Anthracnose & Leaf Blight',
+    crop: 'Mango (आंबा)',
+    disease: 'Anthracnose',
     farmLocation: 'Dindori Plot A, Nashik',
     startDate: 'Aug 28, 2026',
     currentStage: 'Day 7 — Expert Post-Treatment Check',
     recoveryScore: 78,
-    beforeImage: 'https://images.unsplash.com/photo-1592417817098-8f3d6eb19655?auto=format&fit=crop&w=500&q=80',
-    afterImage: 'https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=500&q=80',
+    beforeImage: 'https://www.multiplexgroup.com/assets/images/mango-anthracnose1.jpg',
+    afterImage: 'https://m.media-amazon.com/images/I/614iU7XmInL._SY300_SX300_QL70_FMwebp_.jpg',
     steps: [
       { day: 'Day 0', title: 'Initial Disease Detection', date: '28 Aug', status: 'Completed', desc: 'AI flagged Anthracnose (87% confidence). High humidity alert issued.' },
       { day: 'Day 2', title: 'IPM Advisory Spray Applied', date: '30 Aug', status: 'Completed', desc: 'Farmer applied Neem oil + Carbendazim 50% WP spray as instructed.' },

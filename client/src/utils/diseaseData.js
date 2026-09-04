@@ -294,25 +294,25 @@ export const demoSamples = [
     id: 'sample_mango',
     crop: 'mango',
     title: 'Mango Anthracnose Leaf Spot',
-    url: 'https://images.unsplash.com/photo-1595855759920-86582396756a?q=80&w=800&auto=format&fit=crop'
+    url: 'https://www.shutterstock.com/image-photo/anthracnose-disease-on-mango-leave-600w-1452955268.jpg'
   },
   {
     id: 'sample_rice',
     crop: 'rice',
     title: 'Rice Blast Disease (Magnaporthe)',
-    url: 'https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?q=80&w=800&auto=format&fit=crop'
+    url: 'https://media.springernature.com/full/springer-static/image/art%3A10.1186%2Fs12859-019-3065-1/MediaObjects/12859_2019_3065_Fig1_HTML.png?as=webp'
   },
   {
     id: 'sample_wheat',
     crop: 'wheat',
     title: 'Wheat Stripe Rust (Puccinia)',
-    url: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=800&auto=format&fit=crop'
+    url: 'https://www.cropscience.bayer.co.nz/-/media/bcs-inter/ws_newzealand/pests/diseases/stripe-rust/stripe-rust_wheat.jpg?h=462&w=800&la=en&hash=B47BFBC2539A5066033E31F182805F87'
   },
   {
     id: 'sample_tomato',
     crop: 'tomato',
     title: 'Tomato Late Blight Infection',
-    url: 'https://images.unsplash.com/photo-1592841200221-a6898f307baa?q=80&w=800&auto=format&fit=crop'
+    url: 'https://www.gardentech.com/-/media/project/oneweb/gardentech/images/blog/fight-blight-on-your-tomatoes/fight_blight-header.jpg?h=628&iar=0&w=1200&hash=45B98F15FC76729FE7F90F14FF67663B'
   }
 ];
 
