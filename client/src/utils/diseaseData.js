@@ -294,7 +294,7 @@ export const demoSamples = [
     id: 'sample_mango',
     crop: 'mango',
     title: 'Mango Anthracnose Leaf Spot',
-    url: 'src/scsan-samples/mango.jpg'
+    url: 'client/src/scsan-samples/mango.jpg'
   },
   {
     id: 'sample_rice',
