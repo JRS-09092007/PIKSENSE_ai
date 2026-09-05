@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { getTranslation } from '../i18n/translations';
+import { translateText } from '../services/translator';
 
 const AppContext = createContext(null);
 
@@ -17,6 +18,7 @@ export function AppProvider({ children }) {
   useEffect(() => { localStorage.setItem('crophealth_scans', JSON.stringify(scanHistory)); }, [scanHistory]);
 
   const t = (key) => getTranslation(language, key);
+  const translateDynamicText = (text) => translateText(text, language);
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type, id: Date.now() });
@@ -42,7 +44,7 @@ export function AppProvider({ children }) {
 
   return (
     <AppContext.Provider value={{
-      language, setLanguage, t, scans: scanHistory, scanHistory, setScanHistory, addScan,
+      language, setLanguage, t, translateDynamicText, scans: scanHistory, scanHistory, setScanHistory, addScan,
       onboardingDone, completeOnboarding, resetOnboarding, toast, showToast,
       isVoiceOpen, setIsVoiceOpen
     }}>

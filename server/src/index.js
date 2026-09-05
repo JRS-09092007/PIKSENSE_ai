@@ -1,9 +1,11 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import multer from 'multer';
 import { diseaseKnowledge, farmers, experts, hotspotReports } from './seeds/seedData.js';
+import { translateWithGemini, generateAdvisoryWithGemini } from './services/geminiService.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -147,6 +149,20 @@ app.get('/api/weather/:district', (req, res) => {
       { day: 'Day 5', temp: 33, condition: 'Sunny', rain_chance: 10 },
     ]
   });
+});
+
+// ── Translation & Gemini AI Advisory Routes ────────────────────────────────
+app.post('/api/translate', async (req, res) => {
+  const { text, targetLang } = req.body;
+  if (!text) return res.status(400).json({ error: 'Text parameter required' });
+  const translated = await translateWithGemini(text, targetLang || 'en');
+  res.json({ original: text, targetLang, translated });
+});
+
+app.post('/api/advisory', async (req, res) => {
+  const { crop, disease, confidence, stage, weather } = req.body;
+  const advisory = await generateAdvisoryWithGemini(crop, disease, confidence, stage, weather);
+  res.json({ advisory });
 });
 
 // ── Mock Detection Generator ────────────────────────────────────────────────
