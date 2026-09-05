@@ -13,8 +13,8 @@ export default function FollowUpTimeline() {
     startDate: 'Aug 28, 2026',
     currentStage: 'Day 7 — Expert Post-Treatment Check',
     recoveryScore: 78,
-    beforeImage: 'https://images.unsplash.com/photo-1592417817098-8f3d6eb19655?auto=format&fit=crop&w=500&q=80',
-    afterImage: 'https://share.google/EFCKFBLu1WRGiQzqa',
+    beforeImage: 'mangobImg',
+    afterImage: 'mangoaImg',
     steps: [
       { day: 'Day 0', title: 'Initial Disease Detection', date: '28 Aug', status: 'Completed', desc: 'AI flagged Anthracnose (87% confidence). High humidity alert issued.' },
       { day: 'Day 2', title: 'IPM Advisory Spray Applied', date: '30 Aug', status: 'Completed', desc: 'Farmer applied Neem oil + Carbendazim 50% WP spray as instructed.' },
