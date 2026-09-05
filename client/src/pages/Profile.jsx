@@ -8,12 +8,10 @@ import { MapPin, Leaf, Bell, RefreshCw, LogOut, ChevronRight, Check, Globe, User
 
 export default function Profile() {
   const { user, updateUser, logout } = useAuth();
-  const { t, language, resetOnboarding, showToast } = useApp();
+  const { t, language, resetOnboarding, showToast, notificationSettings, toggleNotificationSetting } = useApp();
   const navigate = useNavigate();
   const [editingCrops, setEditingCrops] = useState(false);
   const [selectedCrops, setSelectedCrops] = useState(user?.crops || []);
-  const [weatherAlerts, setWeatherAlerts] = useState(true);
-  const [hotspotAlerts, setHotspotAlerts] = useState(true);
 
   const toggleCrop = (id) => setSelectedCrops(prev => prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id]);
   const saveCrops = () => {
@@ -109,13 +107,19 @@ export default function Profile() {
         </h3>
         <div className="flex items-center justify-between p-3.5 rounded-2xl bg-white/3 border border-white/5">
           <span className="text-xs font-bold text-surface-200">{t('weather_alerts')}</span>
-          <div className={`toggle-switch ${weatherAlerts ? 'active' : 'inactive'}`} onClick={() => setWeatherAlerts(!weatherAlerts)}>
+          <div className={`toggle-switch ${notificationSettings?.weatherAlerts ? 'active' : 'inactive'}`} onClick={() => toggleNotificationSetting('weatherAlerts')}>
             <div className="toggle-knob" />
           </div>
         </div>
         <div className="flex items-center justify-between p-3.5 rounded-2xl bg-white/3 border border-white/5">
           <span className="text-xs font-bold text-surface-200">{t('hotspot_alerts')}</span>
-          <div className={`toggle-switch ${hotspotAlerts ? 'active' : 'inactive'}`} onClick={() => setHotspotAlerts(!hotspotAlerts)}>
+          <div className={`toggle-switch ${notificationSettings?.hotspotAlerts ? 'active' : 'inactive'}`} onClick={() => toggleNotificationSetting('hotspotAlerts')}>
+            <div className="toggle-knob" />
+          </div>
+        </div>
+        <div className="flex items-center justify-between p-3.5 rounded-2xl bg-white/3 border border-white/5">
+          <span className="text-xs font-bold text-surface-200">Outbreak Disease Alerts</span>
+          <div className={`toggle-switch ${notificationSettings?.outbreakAlerts ? 'active' : 'inactive'}`} onClick={() => toggleNotificationSetting('outbreakAlerts')}>
             <div className="toggle-knob" />
           </div>
         </div>

@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from 'react';
 
 export default function Header() {
   const { user, switchRole } = useAuth();
-  const { t, T, showToast, setIsVoiceOpen } = useApp();
+  const { t, T, showToast, setIsVoiceOpen, notificationSettings } = useApp();
   const navigate = useNavigate();
   
   const [showNotifications, setShowNotifications] = useState(false);
@@ -35,7 +35,7 @@ export default function Header() {
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside, { passive: true });
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
@@ -49,14 +49,22 @@ export default function Header() {
     navigate(navigatePath);
   };
 
-  const unreadCount = alerts.filter(a => a.unread).length;
+  // Filter alerts according to active Notification Settings from Profile/Context
+  const activeSettingsAlerts = alerts.filter(a => {
+    if (a.type === 'weather' && notificationSettings?.weatherAlerts === false) return false;
+    if (a.type === 'outbreak' && notificationSettings?.outbreakAlerts === false) return false;
+    if (a.type === 'expert' && notificationSettings?.expertAlerts === false) return false;
+    return true;
+  });
+
+  const unreadCount = activeSettingsAlerts.filter(a => a.unread).length;
 
   const markAllRead = () => {
     setAlerts(prev => prev.map(a => ({ ...a, unread: false })));
     showToast(t('all_notifications_read') || 'All notifications marked as read', 'info');
   };
 
-  const filteredAlerts = alerts.filter(a => notifFilter === 'all' || a.type === notifFilter);
+  const filteredAlerts = activeSettingsAlerts.filter(a => notifFilter === 'all' || a.type === notifFilter);
 
   const getAlertIcon = (type) => {
     if (type === 'outbreak') return <AlertTriangle size={16} className="text-danger-400" />;
@@ -65,7 +73,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-30 w-full glass-header px-3 sm:px-8 py-2.5 flex items-center justify-between gap-2 overflow-x-hidden">
+    <header className="sticky top-0 z-40 w-full glass-header px-3 sm:px-8 py-2.5 flex items-center justify-between gap-2">
       {/* Brand Logo & Location Metadata */}
       <div className="flex items-center gap-2 sm:gap-3 shrink-0">
         <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-md glow-emerald shrink-0 border border-white/20">
@@ -103,14 +111,19 @@ export default function Header() {
         </button>
 
         {/* Notifications Popover Bell Icon */}
-        <div ref={notifRef} className="relative">
+        <div ref={notifRef} className="relative z-50">
           <button
-            onClick={() => setShowNotifications(!showNotifications)}
-            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl flex items-center justify-center transition-all relative border ${
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowNotifications(prev => !prev);
+            }}
+            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl flex items-center justify-center transition-all relative border cursor-pointer ${
               showNotifications
-                ? 'bg-emerald-500/25 text-emerald-300 border-emerald-500/40 glow-emerald'
+                ? 'bg-emerald-500/25 text-emerald-300 border-emerald-500/40 glow-emerald ring-2 ring-emerald-500/30'
                 : 'bg-white/5 hover:bg-white/10 text-surface-300 border-white/10'
-            }`}>
+            }`}
+            title="Toggle Notifications">
             <Bell size={16} />
             {unreadCount > 0 && (
               <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-accent-500 text-white text-[9px] font-extrabold flex items-center justify-center shadow-lg border border-surface-900 animate-pulse">
@@ -159,7 +172,7 @@ export default function Header() {
 
               {/* Alerts List */}
               <div className="space-y-2 max-h-72 overflow-y-auto scrollbar-none">
-                {filteredAlerts.map(alert => (
+                {filteredAlerts.length > 0 ? filteredAlerts.map(alert => (
                   <div
                     key={alert.id}
                     onClick={() => {
@@ -182,7 +195,9 @@ export default function Header() {
                       <p className="text-xs text-surface-300 mt-1 leading-snug font-medium"><T text={alert.text} /></p>
                     </div>
                   </div>
-                ))}
+                )) : (
+                  <p className="text-center text-xs text-slate-400 py-4">No notifications active for this category</p>
+                )}
               </div>
             </div>
           )}

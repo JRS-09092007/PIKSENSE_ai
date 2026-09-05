@@ -1,25 +1,41 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 import { 
   Sparkles, Leaf, ShieldAlert, Cpu, MapPin, Users, BarChart3, 
-  ArrowRight, CheckCircle2, ChevronRight, CloudRain, Bug, ShieldCheck
+  ArrowRight, CheckCircle2, ChevronRight, CloudRain, Bug, ShieldCheck,
+  LogIn, UserPlus, LogOut, User
 } from 'lucide-react';
 
 export default function Landing() {
   const navigate = useNavigate();
-  const { switchRole } = useAuth();
-  const { t, T } = useApp();
+  const { user, logout, switchRole } = useAuth();
+  const { t, T, showToast } = useApp();
 
   const handleRoleSelect = (rolePath, roleKey) => {
+    if (!user) {
+      showToast('Please log in or create an account to access the portal', 'info');
+      navigate('/login');
+      return;
+    }
     switchRole(roleKey);
     navigate(rolePath);
+  };
+
+  const handleActionClick = (path) => {
+    if (!user) {
+      showToast('Please log in or register first to use this feature', 'info');
+      navigate('/login');
+      return;
+    }
+    navigate(path);
   };
 
   return (
     <div className="min-h-screen bg-[#030d0a] text-slate-100 flex flex-col font-sans">
       {/* Top Banner Header */}
-      <header className="sticky top-0 z-50 glass-header px-6 py-4 flex items-center justify-between border-b border-emerald-500/20">
+      <header className="sticky top-0 z-50 glass-header px-4 sm:px-6 py-4 flex items-center justify-between border-b border-emerald-500/20">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-lg glow-emerald">
             <Leaf size={22} />
@@ -34,17 +50,41 @@ export default function Landing() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => handleRoleSelect('/dashboard', 'farmer')}
-            className="px-4 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold border border-emerald-500/40 transition-all flex items-center gap-2">
-            <span>🌾 {t('farmer_portal')}</span>
-          </button>
-          <button
-            onClick={() => handleRoleSelect('/admin-dashboard', 'officer')}
-            className="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-bold border border-amber-500/40 transition-all flex items-center gap-2">
-            <span>🏛️ {t('official_command_center')}</span>
-          </button>
+        <div className="flex items-center gap-2 sm:gap-3">
+          <LanguageSwitcher compact />
+          
+          {user ? (
+            <div className="flex items-center gap-2">
+              <Link
+                to={user.role === 'officer' ? '/admin-dashboard' : user.role === 'extension' ? '/extension-dashboard' : '/dashboard'}
+                className="px-3.5 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold border border-emerald-500/40 transition-all flex items-center gap-1.5">
+                <User size={14} />
+                <span className="hidden sm:inline">{user.name.split(' ')[0]}</span>
+                <span>Portal</span>
+              </Link>
+              <button
+                onClick={() => { logout(); showToast('Logged out successfully', 'info'); }}
+                className="p-2 rounded-xl bg-white/5 hover:bg-red-500/20 text-slate-300 hover:text-red-400 border border-white/10 transition-all"
+                title="Logout">
+                <LogOut size={16} />
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Link
+                to="/login"
+                className="px-3.5 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold border border-emerald-500/40 transition-all flex items-center gap-1.5 glow-emerald">
+                <LogIn size={15} />
+                <span>Login</span>
+              </Link>
+              <Link
+                to="/register"
+                className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-bold shadow-lg transition-all flex items-center gap-1.5">
+                <UserPlus size={15} />
+                <span className="hidden sm:inline">Register</span>
+              </Link>
+            </div>
+          )}
         </div>
       </header>
 
@@ -66,7 +106,7 @@ export default function Landing() {
         {/* Action Buttons */}
         <div className="mt-10 flex flex-wrap justify-center gap-4">
           <button
-            onClick={() => handleRoleSelect('/scan', 'farmer')}
+            onClick={() => handleActionClick('/scan')}
             className="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-extrabold text-sm shadow-xl hover:shadow-emerald-500/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 glow-emerald">
             <Cpu size={18} />
             <span>{t('scan_crop_disease')}</span>
@@ -74,7 +114,7 @@ export default function Landing() {
           </button>
 
           <button
-            onClick={() => handleRoleSelect('/map', 'officer')}
+            onClick={() => handleActionClick('/map')}
             className="px-7 py-3.5 rounded-2xl bg-white/5 hover:bg-white/10 text-white font-extrabold text-sm border border-white/15 hover:border-emerald-500/40 transition-all flex items-center gap-2">
             <MapPin size={18} className="text-emerald-400" />
             <span>{t('explore_hotspot_map')}</span>

@@ -2,38 +2,39 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
-import { LogIn, Sparkles, Building2, User, Users, CheckCircle2, ShieldCheck, ArrowRight } from 'lucide-react';
+import { LogIn, Sparkles, UserPlus, CheckCircle2, ArrowRight, KeyRound, Phone, UserCheck } from 'lucide-react';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
 export default function Login() {
   const [role, setRole] = useState('farmer');
-  const [emailOrPhone, setEmailOrPhone] = useState('farmer@mahacrop.gov.in');
-  const [password, setPassword] = useState('farmer123');
+  const [emailOrPhone, setEmailOrPhone] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth();
+  const { login, DEFAULT_USERS } = useAuth();
   const { t, showToast } = useApp();
   const navigate = useNavigate();
 
   const handleRoleSelect = (newRole) => {
     setRole(newRole);
-    if (newRole === 'officer') {
-      setEmailOrPhone('officer@mahacrop.gov.in');
-      setPassword('officer123');
-    } else if (newRole === 'extension') {
-      setEmailOrPhone('extension@mahacrop.gov.in');
-      setPassword('extension123');
-    } else {
-      setEmailOrPhone('farmer@mahacrop.gov.in');
-      setPassword('farmer123');
-    }
+    setError('');
+  };
+
+  const handleQuickDemo = (demoRole) => {
+    setRole(demoRole);
+    const demo = DEFAULT_USERS.find(u => u.role === demoRole) || DEFAULT_USERS[0];
+    setEmailOrPhone(demo.email);
+    setPassword(demo.password);
+    setError('');
+    showToast(`Loaded demo credentials for ${demoRole === 'officer' ? 'Govt Official' : demoRole === 'extension' ? 'Field Officer' : 'Farmer'}`, 'info');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError('');
     const res = login(emailOrPhone, password, role);
     if (res.success) {
-      showToast(`Welcome ${res.user.name}! Accessing ${
-        role === 'officer' ? 'Govt Officer Command Center' : role === 'extension' ? 'Extension Field Portal' : 'Farmer Portal'
+      showToast(`Welcome back, ${res.user.name}! Accessing ${
+        res.user.role === 'officer' ? 'Govt Officer Command Center' : res.user.role === 'extension' ? 'Extension Field Portal' : 'Farmer Portal'
       }`, 'success');
       if (res.user.role === 'officer') {
         navigate('/admin-dashboard');
@@ -43,7 +44,7 @@ export default function Login() {
         navigate('/dashboard');
       }
     } else {
-      setError(res.error);
+      setError(res.error || 'Login failed. Please check your credentials.');
     }
   };
 
@@ -62,12 +63,12 @@ export default function Login() {
             <Sparkles size={32} className="text-white" />
           </div>
           <h1 className="text-2xl font-extrabold text-white tracking-tight font-heading">
-            पीक<span className="text-emerald-400">Sense</span>
+            पीक<span className="text-emerald-400">Sense</span> Portal Login
           </h1>
-          <p className="text-slate-400 text-xs mt-1">Select your account portal role to log in</p>
+          <p className="text-slate-400 text-xs mt-1">Please log in to your account or register to access the platform</p>
         </div>
 
-        {/* Classroom-Style Role Choice Cards */}
+        {/* Role Choice Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {/* Farmer Card */}
           <button
@@ -133,17 +134,20 @@ export default function Login() {
           </div>
 
           {error && (
-            <div className="bg-red-500/20 border border-red-500/40 text-red-300 text-xs p-3 rounded-xl font-bold">
-              {error}
+            <div className="bg-red-500/20 border border-red-500/40 text-red-300 text-xs p-3.5 rounded-2xl font-bold flex items-start gap-2 animate-shake">
+              <span className="text-sm">⚠️</span>
+              <span>{error}</span>
             </div>
           )}
 
           <div>
-            <label className="text-xs font-bold text-slate-300 mb-1 block">
-              {role === 'officer' ? 'Official Govt Email / Phone' : role === 'extension' ? 'Krishi Sevak ID / Phone' : 'Farmer Mobile / Email'}
+            <label className="text-xs font-bold text-slate-300 mb-1 block flex items-center gap-1">
+              <Phone size={13} className="text-emerald-400" />
+              {role === 'officer' ? 'Official Govt Email / Mobile Number' : role === 'extension' ? 'Krishi Sevak ID / Mobile Number' : 'Farmer Mobile / Email'}
             </label>
             <input
               type="text"
+              placeholder="Enter your registered mobile or email"
               value={emailOrPhone}
               onChange={e => setEmailOrPhone(e.target.value)}
               className="glass-input text-xs"
@@ -152,9 +156,12 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="text-xs font-bold text-slate-300 mb-1 block">Password</label>
+            <label className="text-xs font-bold text-slate-300 mb-1 block flex items-center gap-1">
+              <KeyRound size={13} className="text-emerald-400" /> Password
+            </label>
             <input
               type="password"
+              placeholder="Enter account password"
               value={password}
               onChange={e => setPassword(e.target.value)}
               className="glass-input text-xs"
@@ -172,15 +179,48 @@ export default function Login() {
                 : 'bg-gradient-to-r from-emerald-500 to-teal-600'
             }`}>
             <LogIn size={18} />
-            <span>Enter Portal</span>
+            <span>Login & Access Portal</span>
             <ArrowRight size={18} />
           </button>
 
-          <div className="p-3 rounded-2xl bg-black/40 border border-white/5 text-xs text-slate-300 space-y-1">
-            <p className="font-bold text-white flex items-center gap-1">
-              <CheckCircle2 size={13} className="text-emerald-400" /> Demo Credentials Loaded:
+          {/* Registration Prompt Link */}
+          <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-1">
+            <p className="text-xs text-slate-300 font-medium">
+              Don't have a registered account yet?
             </p>
-            <p className="text-[11px] font-mono text-emerald-300">{emailOrPhone} / pass: demo</p>
+            <Link
+              to="/register"
+              className="inline-flex items-center gap-1 text-xs font-extrabold text-emerald-400 hover:text-emerald-300 underline transition-colors">
+              <UserPlus size={14} />
+              <span>Create New Account / Register Here</span>
+            </Link>
+          </div>
+
+          {/* Quick Demo Credentials Assistant */}
+          <div className="p-3.5 rounded-2xl bg-black/40 border border-white/5 text-xs text-slate-300 space-y-2">
+            <p className="font-bold text-white text-[11px] flex items-center gap-1">
+              <UserCheck size={13} className="text-emerald-400" /> Quick Demo Login Preset:
+            </p>
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                type="button"
+                onClick={() => handleQuickDemo('farmer')}
+                className="py-1.5 px-2 rounded-xl bg-white/5 hover:bg-emerald-500/20 border border-white/10 text-[10px] font-bold text-emerald-300 transition-all">
+                🌾 Demo Farmer
+              </button>
+              <button
+                type="button"
+                onClick={() => handleQuickDemo('extension')}
+                className="py-1.5 px-2 rounded-xl bg-white/5 hover:bg-blue-500/20 border border-white/10 text-[10px] font-bold text-blue-300 transition-all">
+                🧑‍🌾 Demo Sevak
+              </button>
+              <button
+                type="button"
+                onClick={() => handleQuickDemo('officer')}
+                className="py-1.5 px-2 rounded-xl bg-white/5 hover:bg-amber-500/20 border border-white/10 text-[10px] font-bold text-amber-300 transition-all">
+                🏛️ Demo Officer
+              </button>
+            </div>
           </div>
         </form>
       </div>

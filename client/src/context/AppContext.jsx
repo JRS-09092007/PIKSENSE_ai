@@ -14,9 +14,14 @@ export function AppProvider({ children }) {
   const [onboardingDone, setOnboardingDone] = useState(() => localStorage.getItem('crophealth_onboarded') === 'true');
   const [toast, setToast] = useState(null);
   const [isVoiceOpen, setIsVoiceOpen] = useState(false);
+  const [notificationSettings, setNotificationSettings] = useState(() => {
+    const stored = localStorage.getItem('crophealth_notif_settings');
+    return stored ? JSON.parse(stored) : { weatherAlerts: true, hotspotAlerts: true, outbreakAlerts: true, expertAlerts: true };
+  });
 
   useEffect(() => { localStorage.setItem('crophealth_lang', language); }, [language]);
   useEffect(() => { localStorage.setItem('crophealth_scans', JSON.stringify(scanHistory)); }, [scanHistory]);
+  useEffect(() => { localStorage.setItem('crophealth_notif_settings', JSON.stringify(notificationSettings)); }, [notificationSettings]);
 
   const t = (key) => getTranslation(language, key);
   const translateDynamicText = (text) => translateText(text, language);
@@ -43,11 +48,20 @@ export function AppProvider({ children }) {
     localStorage.removeItem('crophealth_onboarded');
   };
 
+  const toggleNotificationSetting = (key) => {
+    setNotificationSettings(prev => {
+      const updated = { ...prev, [key]: !prev[key] };
+      showToast(`Notification setting updated!`, 'info');
+      return updated;
+    });
+  };
+
   return (
     <AppContext.Provider value={{
       language, setLanguage, t, translateDynamicText, T: TranslatedText, scans: scanHistory, scanHistory, setScanHistory, addScan,
       onboardingDone, completeOnboarding, resetOnboarding, toast, showToast,
-      isVoiceOpen, setIsVoiceOpen
+      isVoiceOpen, setIsVoiceOpen,
+      notificationSettings, toggleNotificationSetting
     }}>
       {children}
     </AppContext.Provider>
