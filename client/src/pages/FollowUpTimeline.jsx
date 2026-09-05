@@ -13,8 +13,8 @@ export default function FollowUpTimeline() {
     startDate: 'Aug 28, 2026',
     currentStage: 'Day 7 — Expert Post-Treatment Check',
     recoveryScore: 78,
-    beforeImage: 'mangobImg',
-    afterImage: 'mangoaImg',
+    beforeImage: 'https://apps.lucidcentral.org/pppw_v10/images/entities/mango_anthracnose_009/mangoshoot.jpg',
+    afterImage: 'https://images.medicinenet.com/images/article/main_image/emerging-benefits-of-mango-leaves.jpg?output-quality=75',
     steps: [
       { day: 'Day 0', title: 'Initial Disease Detection', date: '28 Aug', status: 'Completed', desc: 'AI flagged Anthracnose (87% confidence). High humidity alert issued.' },
       { day: 'Day 2', title: 'IPM Advisory Spray Applied', date: '30 Aug', status: 'Completed', desc: 'Farmer applied Neem oil + Carbendazim 50% WP spray as instructed.' },
