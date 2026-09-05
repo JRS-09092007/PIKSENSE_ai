@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
-import { diseaseKnowledge, cropsList } from '../utils/diseaseData';
+import { diseaseKnowledge, cropsList, getLocalizedDisease } from '../utils/diseaseData';
 import { Search, ChevronDown, ChevronUp, AlertTriangle, Leaf, FlaskConical, Zap, BookOpen, ShieldCheck, UserCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Library() {
-  const { t, language, showToast } = useApp();
+  const { t, T, language, showToast } = useApp();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
@@ -21,9 +21,10 @@ export default function Library() {
   });
 
   const filtered = sorted.filter(d => {
+    const loc = getLocalizedDisease(d, language);
     if (search) {
       const q = search.toLowerCase();
-      return d.display_name.toLowerCase().includes(q) || d.description.toLowerCase().includes(q) || d.symptoms.some(s => s.toLowerCase().includes(q));
+      return loc.display_name.toLowerCase().includes(q) || loc.description.toLowerCase().includes(q) || loc.symptoms?.some(s => s.toLowerCase().includes(q));
     }
     if (selectedCrop !== 'all') return d.crop.includes(selectedCrop);
     return true;
@@ -34,7 +35,7 @@ export default function Library() {
       {/* Header */}
       <div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-heading flex items-center gap-2">
-          <BookOpen className="text-primary-400" /> {t('disease_library')}
+          <BookOpen className="text-primary-400" /> {t('library_title')}
         </h1>
         <p className="text-sm text-surface-400">{t('library_subtitle')}</p>
       </div>
@@ -44,7 +45,7 @@ export default function Library() {
         <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-surface-400" />
         <input
           type="text"
-          placeholder={t('search_library_placeholder')}
+          placeholder={t('search_library_placeholder') || t('search')}
           value={search}
           onChange={e => setSearch(e.target.value)}
           className="glass-input pl-11 py-3.5"
@@ -79,7 +80,8 @@ export default function Library() {
 
       {/* Disease Knowledge Cards */}
       <div className="space-y-4">
-        {filtered.map((disease, i) => {
+        {filtered.map((rawDisease, i) => {
+          const disease = getLocalizedDisease(rawDisease, language);
           const isOpen = expanded === i;
           return (
             <div key={disease.class_id} className="glass-card overflow-hidden border border-white/8 card-hover">
@@ -91,7 +93,7 @@ export default function Library() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h3 className="font-extrabold text-white text-base font-heading">{disease.display_name}</h3>
+                        <h3 className="font-extrabold text-white text-base font-heading"><T text={disease.display_name} /></h3>
                         {disease.expert_review_needed && (
                           <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-500/30">
                             ⚠️ Expert Review
@@ -112,25 +114,25 @@ export default function Library() {
                   {/* Before / After Comparison */}
                   <div className="grid grid-cols-2 gap-3">
                     <div className="rounded-2xl p-4 text-center bg-danger-950/30 border border-danger-500/20">
-                      <p className="text-xs font-bold text-danger-300 mb-2 uppercase tracking-wider">{t('before')}</p>
+                      <p className="text-xs font-bold text-danger-300 mb-2 uppercase tracking-wider">Infected Stage</p>
                       <span className="text-4xl inline-block mb-1">{disease.before_image}</span>
                       <p className="text-[11px] text-danger-400 font-medium">Pathogen Lesions Visible</p>
                     </div>
                     <div className="rounded-2xl p-4 text-center bg-emerald-950/30 border border-emerald-500/20">
-                      <p className="text-xs font-bold text-emerald-300 mb-2 uppercase tracking-wider">{t('after')}</p>
+                      <p className="text-xs font-bold text-emerald-300 mb-2 uppercase tracking-wider">Cured Stage</p>
                       <span className="text-4xl inline-block mb-1">{disease.after_image}</span>
-                      <p className="text-[11px] text-emerald-400 font-medium">{t('full_recovery')}</p>
+                      <p className="text-[11px] text-emerald-400 font-medium">{t('optimal_state')}</p>
                     </div>
                   </div>
 
                   <div>
                     <h4 className="text-xs font-bold text-surface-400 uppercase tracking-wider mb-1">{t('description')}</h4>
-                    <p className="text-sm text-surface-200 leading-relaxed font-medium">{disease.description}</p>
+                    <p className="text-sm text-surface-200 leading-relaxed font-medium"><T text={disease.description} /></p>
                   </div>
 
                   <div className="p-4 rounded-2xl bg-white/3 border border-white/5">
                     <h4 className="text-xs font-bold text-surface-400 uppercase tracking-wider mb-1">{t('cause')}</h4>
-                    <p className="text-sm text-surface-300 leading-relaxed">{disease.cause}</p>
+                    <p className="text-sm text-surface-300 leading-relaxed"><T text={disease.cause} /></p>
                   </div>
 
                   {/* Immediate Action */}
@@ -138,7 +140,7 @@ export default function Library() {
                     <h4 className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-1 flex items-center gap-1.5">
                       <Zap size={14} /> {t('immediate_action')}
                     </h4>
-                    <p className="text-sm text-amber-200/90 font-semibold">{disease.immediate_action}</p>
+                    <p className="text-sm text-amber-200/90 font-semibold"><T text={disease.immediate_action} /></p>
                   </div>
 
                   {/* Organic & Chemical Treatments */}
@@ -147,13 +149,13 @@ export default function Library() {
                       <h4 className="text-xs font-bold text-emerald-300 uppercase tracking-wider mb-1 flex items-center gap-1.5">
                         <Leaf size={14} /> {t('organic')} {t('solution')}
                       </h4>
-                      <p className="text-xs text-emerald-200/80 leading-relaxed font-medium">{disease.treatment.organic}</p>
+                      <p className="text-xs text-emerald-200/80 leading-relaxed font-medium"><T text={disease.treatment?.organic} /></p>
                     </div>
                     <div className="rounded-2xl p-4 bg-blue-950/30 border border-blue-500/20">
                       <h4 className="text-xs font-bold text-blue-300 uppercase tracking-wider mb-1 flex items-center gap-1.5">
                         <FlaskConical size={14} /> {t('chemical')} {t('solution')}
                       </h4>
-                      <p className="text-xs text-blue-200/80 leading-relaxed font-medium">{disease.treatment.chemical}</p>
+                      <p className="text-xs text-blue-200/80 leading-relaxed font-medium"><T text={disease.treatment?.chemical} /></p>
                     </div>
                   </div>
 
@@ -163,7 +165,7 @@ export default function Library() {
                       navigate('/experts');
                     }}
                     className="w-full py-3.5 rounded-2xl bg-primary-500/15 hover:bg-primary-500/25 text-primary-300 font-bold border border-primary-500/30 text-xs flex items-center justify-center gap-2 transition-colors">
-                    <UserCheck size={16} /> {t('consult_doctor_for')} {disease.display_name}
+                    <UserCheck size={16} /> {t('talk_to_expert')}
                   </button>
                 </div>
               )}

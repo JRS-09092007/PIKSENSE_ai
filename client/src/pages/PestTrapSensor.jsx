@@ -6,7 +6,7 @@ import {
 import { useApp } from '../context/AppContext';
 
 export default function PestTrapSensor() {
-  const { showToast } = useApp();
+  const { t, T, showToast } = useApp();
   const [traps, setTraps] = useState([
     { id: 1, name: 'Pheromone Trap #1 (Fall Armyworm)', pest: 'Fall Armyworm', count: 18, prevCount: 11, trend: 'Increasing (+63%)', risk: 'High', crop: 'Soybean', location: 'Dindori Plot A', lastChecked: 'Today, 08:30 AM' },
     { id: 2, name: 'Light Trap #2 (Yellow Stem Borer)', pest: 'Stem Borer', count: 7, prevCount: 9, trend: 'Decreasing (-22%)', risk: 'Moderate', crop: 'Rice', location: 'Field B2, Igatpuri', lastChecked: 'Yesterday' },
@@ -48,12 +48,12 @@ export default function PestTrapSensor() {
   };
 
   const handleSimulateIoT = () => {
-    setTraps(prev => prev.map(t => {
+    setTraps(prev => prev.map(tItem => {
       const delta = Math.floor(Math.random() * 5) - 2;
-      const newCount = Math.max(0, t.count + delta);
+      const newCount = Math.max(0, tItem.count + delta);
       return {
-        ...t,
-        prevCount: t.count,
+        ...tItem,
+        prevCount: tItem.count,
         count: newCount,
         trend: delta > 0 ? `Increasing (+${delta})` : delta < 0 ? `Decreasing (${delta})` : 'Stable',
         risk: newCount > 20 ? 'Critical' : newCount > 12 ? 'High' : newCount > 6 ? 'Moderate' : 'Low',
@@ -64,10 +64,10 @@ export default function PestTrapSensor() {
   };
 
   const getRiskBadge = (risk) => {
-    if (risk === 'Critical') return <span className="px-2.5 py-1 rounded-full text-xs font-extrabold bg-red-500/20 text-red-300 border border-red-500/40">CRITICAL RISK</span>;
-    if (risk === 'High') return <span className="px-2.5 py-1 rounded-full text-xs font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40">HIGH RISK</span>;
-    if (risk === 'Moderate') return <span className="px-2.5 py-1 rounded-full text-xs font-extrabold bg-yellow-500/20 text-yellow-300 border border-yellow-500/40">MODERATE</span>;
-    return <span className="px-2.5 py-1 rounded-full text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">LOW RISK</span>;
+    if (risk === 'Critical') return <span className="px-2.5 py-1 rounded-full text-xs font-extrabold bg-red-500/20 text-red-300 border border-red-500/40">{t('risk_high')}</span>;
+    if (risk === 'High') return <span className="px-2.5 py-1 rounded-full text-xs font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40">{t('risk_high')}</span>;
+    if (risk === 'Moderate') return <span className="px-2.5 py-1 rounded-full text-xs font-extrabold bg-yellow-500/20 text-yellow-300 border border-yellow-500/40">{t('risk_medium')}</span>;
+    return <span className="px-2.5 py-1 rounded-full text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">{t('risk_low')}</span>;
   };
 
   return (
@@ -80,14 +80,14 @@ export default function PestTrapSensor() {
               <Bug size={20} />
             </div>
             <h1 className="text-xl font-extrabold text-white font-heading">
-              Pest Trap & Sensor Monitoring
+              {t('pest_traps_title')}
             </h1>
             <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 text-[10px] font-mono font-bold uppercase">
               DEMO / SENSOR TELEMETRY
             </span>
           </div>
           <p className="text-xs text-slate-300 font-medium">
-            Real-time physical pheromone trap counts, sticky card counts, and microclimate sensors for early outbreak warning.
+            {t('pest_traps_subtitle')}
           </p>
         </div>
 
@@ -114,14 +114,14 @@ export default function PestTrapSensor() {
           return (
             <div key={s.id} className="glass-card p-5 border-white/10 hover:border-emerald-500/30 transition-all">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-extrabold text-slate-300">{s.name}</span>
+                <span className="text-xs font-extrabold text-slate-300"><T text={s.name} /></span>
                 <Icon size={18} className={s.color} />
               </div>
               <div className="mt-3 flex items-baseline gap-2">
                 <span className="text-2xl font-black text-white font-mono">{s.value}</span>
-                <span className="text-xs font-bold text-amber-300">{s.status}</span>
+                <span className="text-xs font-bold text-amber-300"><T text={s.status} /></span>
               </div>
-              <p className="text-[11px] text-slate-400 mt-2 font-medium leading-snug">{s.desc}</p>
+              <p className="text-[11px] text-slate-400 mt-2 font-medium leading-snug"><T text={s.desc} /></p>
             </div>
           );
         })}
@@ -131,7 +131,7 @@ export default function PestTrapSensor() {
       <div className="space-y-4">
         <h2 className="text-base font-extrabold text-white font-heading flex items-center gap-2">
           <Activity size={18} className="text-emerald-400" />
-          <span>Active Pest Traps & Population Density</span>
+          <span>{t('live_sensor_telemetry')}</span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -140,10 +140,10 @@ export default function PestTrapSensor() {
               <div className="flex items-start justify-between">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="font-extrabold text-white text-sm font-heading">{trap.name}</h3>
+                    <h3 className="font-extrabold text-white text-sm font-heading"><T text={trap.name} /></h3>
                   </div>
                   <p className="text-xs text-slate-400 mt-0.5 flex items-center gap-1">
-                    <MapPin size={12} className="text-emerald-400" /> {trap.location} • <span className="text-slate-300 font-semibold">{trap.crop}</span>
+                    <MapPin size={12} className="text-emerald-400" /> <T text={trap.location} /> • <span className="text-slate-300 font-semibold"><T text={trap.crop} /></span>
                   </p>
                 </div>
                 {getRiskBadge(trap.risk)}
@@ -161,14 +161,14 @@ export default function PestTrapSensor() {
                 <div>
                   <span className="text-[10px] text-slate-400 font-bold uppercase">Trend</span>
                   <p className={`text-xs font-bold mt-1 ${trap.trend.includes('Increasing') ? 'text-red-400' : 'text-emerald-400'}`}>
-                    {trap.trend}
+                    <T text={trap.trend} />
                   </p>
                 </div>
               </div>
 
               <div className="mt-3 flex items-center justify-between text-[11px] text-slate-400 font-medium">
-                <span>Target Pest: <strong className="text-slate-200">{trap.pest}</strong></span>
-                <span>Checked: {trap.lastChecked}</span>
+                <span>Target Pest: <strong className="text-slate-200"><T text={trap.pest} /></strong></span>
+                <span>Checked: <T text={trap.lastChecked} /></span>
               </div>
             </div>
           ))}
@@ -248,12 +248,12 @@ export default function PestTrapSensor() {
                   type="button"
                   onClick={() => setShowAddModal(false)}
                   className="w-1/2 py-2.5 rounded-xl bg-white/10 text-slate-300 font-bold hover:bg-white/15">
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   type="submit"
                   className="w-1/2 py-2.5 rounded-xl bg-emerald-500 text-white font-bold hover:bg-emerald-600 shadow-lg glow-emerald">
-                  Save Trap Count
+                  {t('save')}
                 </button>
               </div>
             </form>

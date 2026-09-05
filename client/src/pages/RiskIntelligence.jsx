@@ -3,7 +3,7 @@ import { ThermometerSun, CloudRain, Sprout, Layers, History, AlertTriangle, Shie
 import { useApp } from '../context/AppContext';
 
 export default function RiskIntelligence() {
-  const { showToast } = useApp();
+  const { t, T, showToast } = useApp();
 
   const [selectedCrop, setSelectedCrop] = useState('soybean');
 
@@ -73,11 +73,11 @@ export default function RiskIntelligence() {
               <ThermometerSun size={20} />
             </div>
             <h1 className="text-xl font-extrabold text-white font-heading">
-              Multi-Factor Risk Intelligence Matrix
+              {t('risk_matrix_title')}
             </h1>
           </div>
           <p className="text-xs text-slate-300 font-medium">
-            Explainable AI decision engine combining Weather + Crop Stage + Crop Variety + Soil Condition + Historical Outbreak Data.
+            {t('risk_matrix_subtitle')}
           </p>
         </div>
 
@@ -92,7 +92,7 @@ export default function RiskIntelligence() {
                   ? 'bg-emerald-500 text-white shadow-lg glow-emerald'
                   : 'text-slate-400 hover:text-white'
               }`}>
-              {key}
+              <T text={key} />
             </button>
           ))}
         </div>
@@ -104,25 +104,25 @@ export default function RiskIntelligence() {
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/20 text-red-300 border border-red-500/40 text-xs font-extrabold">
               <AlertTriangle size={14} className="text-red-400 animate-pulse" />
-              <span>{current.overallRisk}</span>
+              <span><T text={current.overallRisk} /></span>
             </div>
 
             <h2 className="text-2xl font-extrabold text-white font-heading">
-              {current.cropName} — {current.targetDisease}
+              <T text={current.cropName} /> — <T text={current.targetDisease} />
             </h2>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs text-slate-300 pt-2 font-medium">
-              <div><strong className="text-slate-400">Variety:</strong> {current.variety}</div>
-              <div><strong className="text-slate-400">Growth Stage:</strong> {current.stage}</div>
-              <div><strong className="text-slate-400">Soil Type:</strong> {current.soil}</div>
+              <div><strong className="text-slate-400">Variety:</strong> <T text={current.variety} /></div>
+              <div><strong className="text-slate-400">Growth Stage:</strong> <T text={current.stage} /></div>
+              <div><strong className="text-slate-400">Soil Type:</strong> <T text={current.soil} /></div>
             </div>
           </div>
 
           {/* Risk Score Circle Gauge */}
           <div className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/50 border border-white/10 min-w-[140px]">
-            <span className="text-[10px] uppercase font-extrabold text-slate-400 tracking-wider">Risk Index</span>
+            <span className="text-[10px] uppercase font-extrabold text-slate-400 tracking-wider">{t('risk_index')}</span>
             <span className="text-4xl font-black text-amber-400 font-mono my-1">{current.riskScore}/100</span>
-            <span className="text-[10px] font-bold text-red-400">Action Required</span>
+            <span className="text-[10px] font-bold text-red-400">{t('action_required')}</span>
           </div>
         </div>
       </div>
@@ -131,15 +131,15 @@ export default function RiskIntelligence() {
       <div className="glass-card p-6 border-white/10 space-y-6">
         <h3 className="text-base font-extrabold text-white font-heading flex items-center gap-2">
           <Layers size={18} className="text-emerald-400" />
-          <span>Risk Contribution Matrix Breakdown</span>
+          <span>{t('risk_breakdown')}</span>
         </h3>
 
         <div className="space-y-5">
           {current.factors.map((factor, idx) => (
             <div key={idx} className="space-y-1.5">
               <div className="flex items-center justify-between text-xs font-bold">
-                <span className="text-slate-200">{factor.name}</span>
-                <span className="text-amber-300 font-mono">{factor.score}% ({factor.level})</span>
+                <span className="text-slate-200"><T text={factor.name} /></span>
+                <span className="text-amber-300 font-mono">{factor.score}% (<T text={factor.level} />)</span>
               </div>
               <div className="w-full h-3 rounded-full bg-surface-950 border border-white/10 overflow-hidden">
                 <div
@@ -153,7 +153,7 @@ export default function RiskIntelligence() {
                   style={{ width: `${factor.score}%` }}
                 />
               </div>
-              <p className="text-[11px] text-slate-400 font-medium">{factor.desc}</p>
+              <p className="text-[11px] text-slate-400 font-medium"><T text={factor.desc} /></p>
             </div>
           ))}
         </div>
@@ -165,10 +165,10 @@ export default function RiskIntelligence() {
         <div className="glass-card p-6 border-amber-500/30">
           <h3 className="text-sm font-extrabold text-amber-300 font-heading flex items-center gap-2 mb-3">
             <Info size={16} />
-            <span>Why is the Risk Elevated? (AI Rationale)</span>
+            <span>{t('why_elevated')}</span>
           </h3>
           <p className="text-xs text-slate-300 font-medium leading-relaxed bg-black/30 p-4 rounded-xl border border-white/5">
-            "{current.whyHigh}"
+            "<T text={current.whyHigh} />"
           </p>
         </div>
 
@@ -176,17 +176,17 @@ export default function RiskIntelligence() {
         <div className="glass-card p-6 border-emerald-500/30">
           <h3 className="text-sm font-extrabold text-emerald-300 font-heading flex items-center gap-2 mb-3">
             <ShieldCheck size={16} />
-            <span>Recommended Preventive Intervention</span>
+            <span>{t('recommended_intervention')}</span>
           </h3>
           <p className="text-xs text-slate-300 font-medium leading-relaxed bg-black/30 p-4 rounded-xl border border-white/5">
-            {current.preventiveAction}
+            <T text={current.preventiveAction} />
           </p>
 
           <button
             onClick={() => showToast('Advisory printed & sent via SMS to farmer mobile', 'success')}
             className="mt-4 w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs shadow-lg transition-all flex items-center justify-center gap-2 glow-emerald">
             <CheckCircle2 size={15} />
-            <span>Send Advisory SMS / WhatsApp Notification</span>
+            <span>{t('send_advisory_sms')}</span>
           </button>
         </div>
       </div>

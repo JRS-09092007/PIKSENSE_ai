@@ -3,7 +3,7 @@ import { RotateCcw, Calendar, CheckCircle2, Clock, Upload, ArrowRight, ShieldChe
 import { useApp } from '../context/AppContext';
 
 export default function FollowUpTimeline() {
-  const { showToast } = useApp();
+  const { t, T, showToast } = useApp();
 
   const [activeCase] = useState({
     id: 'CASE-2026-00421',
@@ -41,14 +41,14 @@ export default function FollowUpTimeline() {
               <RotateCcw size={20} />
             </div>
             <h1 className="text-xl font-extrabold text-white font-heading">
-              Case Recovery & Follow-up Monitoring
+              {t('followup_title')}
             </h1>
             <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-mono font-bold uppercase">
               POST-TREATMENT TRACKING
             </span>
           </div>
           <p className="text-xs text-slate-300 font-medium">
-            Monitor crop recovery over time with side-by-side photo comparisons and agronomist follow-up sign-offs.
+            {t('followup_subtitle')}
           </p>
         </div>
 
@@ -67,9 +67,9 @@ export default function FollowUpTimeline() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <span className="text-[10px] font-mono font-bold text-emerald-400">{activeCase.id}</span>
-            <h2 className="text-2xl font-extrabold text-white font-heading">{activeCase.crop}</h2>
+            <h2 className="text-2xl font-extrabold text-white font-heading"><T text={activeCase.crop} /></h2>
             <p className="text-xs text-slate-300 font-medium mt-0.5">
-              Target Problem: <span className="text-amber-300 font-bold">{activeCase.disease}</span> • {activeCase.farmLocation}
+              Target Problem: <span className="text-amber-300 font-bold"><T text={activeCase.disease} /></span> • <T text={activeCase.farmLocation} />
             </p>
           </div>
 
@@ -146,13 +146,13 @@ export default function FollowUpTimeline() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="px-2 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-extrabold">
-                      {step.day}
+                      <T text={step.day} />
                     </span>
-                    <h4 className="text-sm font-extrabold text-white font-heading">{step.title}</h4>
+                    <h4 className="text-sm font-extrabold text-white font-heading"><T text={step.title} /></h4>
                   </div>
-                  <span className="text-[10px] font-bold text-slate-400">{step.date}</span>
+                  <span className="text-[10px] font-bold text-slate-400"><T text={step.date} /></span>
                 </div>
-                <p className="text-xs text-slate-300 font-medium pt-1">{step.desc}</p>
+                <p className="text-xs text-slate-300 font-medium pt-1"><T text={step.desc} /></p>
               </div>
             </div>
           ))}

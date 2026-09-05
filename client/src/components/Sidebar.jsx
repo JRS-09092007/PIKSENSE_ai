@@ -8,7 +8,7 @@ import { useApp } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
 
 export default function Sidebar() {
-  const { t } = useApp();
+  const { t, T } = useApp();
   const { user, switchRole } = useAuth();
   const role = user?.role || 'farmer';
 
@@ -69,7 +69,7 @@ export default function Sidebar() {
       {/* Role Switcher Widget */}
       <div className="mx-4 mb-4 p-3 rounded-2xl bg-emerald-950/60 border border-emerald-500/30 text-xs font-medium">
         <p className="text-[10px] uppercase tracking-wider text-emerald-300 font-extrabold mb-1.5 flex items-center justify-between">
-          <span>Active Role View</span>
+          <span>{t('switch_portal_role')}</span>
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
         </p>
         <div className="grid grid-cols-3 gap-1 p-1 bg-black/40 rounded-xl border border-white/10">
@@ -78,21 +78,21 @@ export default function Sidebar() {
             className={`py-1 rounded-lg text-[10px] font-bold transition-all ${
               role === 'farmer' ? 'bg-emerald-500 text-white shadow-md' : 'text-surface-400 hover:text-white'
             }`}>
-            🌾 Farmer
+            {t('role_farmer')}
           </button>
           <button
             onClick={() => switchRole('extension')}
             className={`py-1 rounded-lg text-[10px] font-bold transition-all ${
               role === 'extension' ? 'bg-emerald-500 text-white shadow-md' : 'text-surface-400 hover:text-white'
             }`}>
-            🧑‍🌾 Field
+            {t('role_extension')}
           </button>
           <button
             onClick={() => switchRole('officer')}
             className={`py-1 rounded-lg text-[10px] font-bold transition-all ${
               role === 'officer' ? 'bg-amber-500 text-white shadow-md' : 'text-surface-400 hover:text-white'
             }`}>
-            🏛️ Officer
+            {t('role_officer')}
           </button>
         </div>
       </div>
@@ -110,7 +110,7 @@ export default function Sidebar() {
             {({ isActive }) => (
               <>
                 <Icon size={17} strokeWidth={isActive ? 2.4 : 1.8} className={`transition-transform duration-300 ${isActive ? 'scale-110 text-emerald-400' : 'group-hover:scale-105 text-emerald-400/80'}`} />
-                <span className="truncate">{label}</span>
+                <span className="truncate">{t(label)}</span>
                 {isActive && <div className="ml-auto w-2 h-2 rounded-full bg-emerald-400 shadow-md shadow-emerald-400/80 shrink-0" />}
               </>
             )}
@@ -132,4 +132,3 @@ export default function Sidebar() {
     </aside>
   );
 }
-

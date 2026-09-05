@@ -10,7 +10,7 @@ import {
 
 export default function Scan() {
   const { user } = useAuth();
-  const { t, language, addScan, showToast } = useApp();
+  const { t, T, language, addScan, showToast } = useApp();
   const navigate = useNavigate();
   const fileRef = useRef(null);
   const [imageUrl, setImageUrl] = useState('');
@@ -140,7 +140,7 @@ export default function Scan() {
                         onClick={() => selectSample(sample)}
                         className="p-2 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left transition-all hover:scale-105 group">
                         <img src={sample.url} alt={sample.title} className="w-full h-16 object-cover rounded-xl mb-1.5" />
-                        <p className="text-[11px] font-bold text-white truncate group-hover:text-primary-300">{sample.title}</p>
+                        <p className="text-[11px] font-bold text-white truncate group-hover:text-primary-300"><T text={sample.title} /></p>
                       </button>
                     ))}
                   </div>
@@ -203,6 +203,7 @@ export default function Scan() {
               {results.detections.map((d, i) => {
                 const colors = ['#10b981', '#f59e0b', '#ef4444'];
                 const color = colors[i % colors.length];
+                const localizedK = getLocalizedDisease(d.knowledge || d, language);
                 return (
                   <div key={i} className="bbox-overlay glow-emerald" style={{
                     left: `${d.bounding_box.x * 100}%`, top: `${d.bounding_box.y * 100}%`,
@@ -210,7 +211,7 @@ export default function Scan() {
                     borderColor: color
                   }}>
                     <div className="bbox-label" style={{ backgroundColor: color }}>
-                      {d.class_name} • {d.confidence}%
+                      {localizedK.display_name || d.class_name} • {d.confidence}%
                     </div>
                   </div>
                 );
@@ -232,7 +233,7 @@ export default function Scan() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h2 className="text-2xl font-extrabold text-white font-heading">{localizedClassName}</h2>
+                        <h2 className="text-2xl font-extrabold text-white font-heading"><T text={localizedClassName} /></h2>
                         <span className="px-2.5 py-0.5 rounded-full bg-danger-500/20 text-danger-300 text-xs font-bold border border-danger-500/30">
                           {t('detected')}
                         </span>
@@ -271,17 +272,17 @@ export default function Scan() {
                   <div className="space-y-4 animate-fade-in">
                     <div>
                       <h4 className="text-xs font-extrabold text-surface-400 uppercase tracking-wider mb-1">{t('description')}</h4>
-                      <p className="text-sm text-surface-200 leading-relaxed font-medium">{k?.description}</p>
+                      <p className="text-sm text-surface-200 leading-relaxed font-medium"><T text={k?.description} /></p>
                     </div>
                     <div className="p-4 rounded-2xl bg-white/3 border border-white/5">
                       <h4 className="text-xs font-extrabold text-surface-400 uppercase tracking-wider mb-1">{t('cause')}</h4>
-                      <p className="text-sm text-surface-300 leading-relaxed">{k?.cause}</p>
+                      <p className="text-sm text-surface-300 leading-relaxed"><T text={k?.cause} /></p>
                     </div>
                     <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20">
                       <h4 className="text-xs font-extrabold text-amber-300 uppercase tracking-wider mb-1 flex items-center gap-1.5">
                         <Zap size={14} /> {t('immediate_action')}
                       </h4>
-                      <p className="text-sm text-amber-200/90 font-semibold">{k?.immediate_action}</p>
+                      <p className="text-sm text-amber-200/90 font-semibold"><T text={k?.immediate_action} /></p>
                     </div>
                   </div>
                 )}
@@ -292,7 +293,7 @@ export default function Scan() {
                     {k?.symptoms?.map((s, idx) => (
                       <div key={idx} className="p-3.5 rounded-2xl bg-white/3 border border-white/5 flex items-start gap-3 text-sm text-surface-200">
                         <AlertTriangle size={16} className="text-danger-400 mt-0.5 shrink-0" />
-                        <span>{s}</span>
+                        <span><T text={s} /></span>
                       </div>
                     ))}
                   </div>
@@ -306,7 +307,7 @@ export default function Scan() {
                         <h4 className="text-xs font-extrabold text-emerald-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                           <Leaf size={16} className="text-emerald-400" /> {t('organic')} {t('solution')}
                         </h4>
-                        <p className="text-sm text-emerald-200/90 leading-relaxed font-medium">{k?.treatment?.organic}</p>
+                        <p className="text-sm text-emerald-200/90 leading-relaxed font-medium"><T text={k?.treatment?.organic} /></p>
                       </div>
 
                       {/* Chemical */}
@@ -314,7 +315,7 @@ export default function Scan() {
                         <h4 className="text-xs font-extrabold text-blue-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                           <FlaskConical size={16} className="text-blue-400" /> {t('chemical')} {t('solution')}
                         </h4>
-                        <p className="text-sm text-blue-200/90 leading-relaxed font-medium">{k?.treatment?.chemical}</p>
+                        <p className="text-sm text-blue-200/90 leading-relaxed font-medium"><T text={k?.treatment?.chemical} /></p>
                       </div>
                     </div>
 
@@ -324,7 +325,7 @@ export default function Scan() {
                         {k?.preventive_measures?.map((m, j) => (
                           <li key={j} className="flex items-start gap-2.5 text-xs text-surface-300 font-medium">
                             <span className="w-5 h-5 rounded-full bg-primary-500/20 text-primary-300 text-[10px] font-extrabold flex items-center justify-center shrink-0">{j + 1}</span>
-                            <span>{m}</span>
+                            <span><T text={m} /></span>
                           </li>
                         ))}
                       </ol>

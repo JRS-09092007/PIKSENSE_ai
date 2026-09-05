@@ -3,7 +3,7 @@ import { Cpu, CheckCircle2, XCircle, BarChart2, RefreshCw, Database, Layers, Arr
 import { useApp } from '../context/AppContext';
 
 export default function ModelFeedback() {
-  const { showToast } = useApp();
+  const { t, T, showToast } = useApp();
 
   const [metrics] = useState({
     totalPredictions: 1420,
@@ -32,14 +32,14 @@ export default function ModelFeedback() {
               <Cpu size={20} />
             </div>
             <h1 className="text-xl font-extrabold text-white font-heading">
-              AI Continuous Learning & Model Feedback Pipeline
+              {t('model_feedback_title')}
             </h1>
             <span className="px-2.5 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30 text-[10px] font-mono font-bold uppercase">
               FEEDBACK PIPELINE — PROTOTYPE
             </span>
           </div>
           <p className="text-xs text-slate-300 font-medium">
-            Field validation loop logging expert confirmations & corrections to continuously enrich the YOLOv12 retraining dataset.
+            {t('model_feedback_subtitle')}
           </p>
         </div>
 
@@ -91,10 +91,10 @@ export default function ModelFeedback() {
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <span className="font-mono font-bold text-purple-400">{log.id}</span>
-                  <span className="font-extrabold text-white">{log.crop}</span>
+                  <span className="font-extrabold text-white"><T text={log.crop} /></span>
                 </div>
                 <p className="text-slate-300">
-                  AI Predicted: <strong className="text-slate-200">{log.aiClass}</strong> → Expert Ground Truth: <strong className="text-emerald-300">{log.expertClass}</strong>
+                  AI Predicted: <strong className="text-slate-200"><T text={log.aiClass} /></strong> → Expert Ground Truth: <strong className="text-emerald-300"><T text={log.expertClass} /></strong>
                 </p>
               </div>
 
@@ -108,7 +108,7 @@ export default function ModelFeedback() {
                     ✎ Corrected
                   </span>
                 )}
-                <span className="text-[10px] text-slate-400">{log.date}</span>
+                <span className="text-[10px] text-slate-400"><T text={log.date} /></span>
               </div>
             </div>
           ))}

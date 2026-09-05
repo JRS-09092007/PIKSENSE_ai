@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { getTranslation } from '../i18n/translations';
 import { translateText } from '../services/translator';
+import TranslatedText from '../components/TranslatedText';
 
 const AppContext = createContext(null);
 
@@ -44,7 +45,7 @@ export function AppProvider({ children }) {
 
   return (
     <AppContext.Provider value={{
-      language, setLanguage, t, translateDynamicText, scans: scanHistory, scanHistory, setScanHistory, addScan,
+      language, setLanguage, t, translateDynamicText, T: TranslatedText, scans: scanHistory, scanHistory, setScanHistory, addScan,
       onboardingDone, completeOnboarding, resetOnboarding, toast, showToast,
       isVoiceOpen, setIsVoiceOpen
     }}>

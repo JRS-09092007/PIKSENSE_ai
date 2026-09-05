@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from 'react';
 
 export default function Header() {
   const { user, switchRole } = useAuth();
-  const { t, showToast, setIsVoiceOpen } = useApp();
+  const { t, T, showToast, setIsVoiceOpen } = useApp();
   const navigate = useNavigate();
   
   const [showNotifications, setShowNotifications] = useState(false);
@@ -53,7 +53,7 @@ export default function Header() {
 
   const markAllRead = () => {
     setAlerts(prev => prev.map(a => ({ ...a, unread: false })));
-    showToast('All notifications marked as read', 'info');
+    showToast(t('all_notifications_read') || 'All notifications marked as read', 'info');
   };
 
   const filteredAlerts = alerts.filter(a => notifFilter === 'all' || a.type === notifFilter);
@@ -78,7 +78,7 @@ export default function Header() {
             </h1>
             {isOfficer ? (
               <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold">
-                <Building2 size={12} className="text-amber-400" /> Govt Officer Portal
+                <Building2 size={12} className="text-amber-400" /> {t('officer_portal')}
               </span>
             ) : (
               <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
@@ -87,7 +87,7 @@ export default function Header() {
             )}
           </div>
           <p className="text-xs text-surface-400 flex items-center gap-1 font-medium mt-0.5">
-            <MapPin size={12} className="text-emerald-400" /> {user?.region || 'Ratnagiri'}, {user?.state || 'Maharashtra'}
+            <MapPin size={12} className="text-emerald-400" /> <T text={user?.region || 'Ratnagiri'} />, <T text={user?.state || 'Maharashtra'} />
           </p>
         </div>
       </div>
@@ -135,12 +135,12 @@ export default function Header() {
                   </h3>
                   {unreadCount > 0 && (
                     <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-accent-500/20 text-accent-300 border border-accent-500/30">
-                      {unreadCount} Unread
+                      {unreadCount} {t('unread')}
                     </span>
                   )}
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <button onClick={markAllRead} title="Mark all as read"
+                  <button onClick={markAllRead} title={t('mark_all_read')}
                     className="p-1.5 rounded-xl hover:bg-white/10 text-surface-400 hover:text-emerald-300 transition-colors text-xs flex items-center gap-1">
                     <CheckCheck size={14} />
                   </button>
@@ -160,7 +160,7 @@ export default function Header() {
                         ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
                         : 'text-surface-400 hover:text-surface-200'
                     }`}>
-                    {cat}
+                    <T text={cat} />
                   </button>
                 ))}
               </div>
@@ -184,10 +184,10 @@ export default function Header() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <p className="font-extrabold text-white text-xs font-heading">{alert.title}</p>
+                        <p className="font-extrabold text-white text-xs font-heading"><T text={alert.title} /></p>
                         <span className="text-[10px] text-surface-400">{alert.time}</span>
                       </div>
-                      <p className="text-xs text-surface-300 mt-1 leading-snug font-medium">{alert.text}</p>
+                      <p className="text-xs text-surface-300 mt-1 leading-snug font-medium"><T text={alert.text} /></p>
                     </div>
                   </div>
                 ))}
@@ -196,15 +196,15 @@ export default function Header() {
           )}
         </div>
 
-        {/* Google Classroom-style Role Switcher Dropdown */}
+        {/* Role Switcher Dropdown */}
         <div className="relative" ref={roleRef}>
           <button
             onClick={() => setShowRoleMenu(!showRoleMenu)}
             className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 text-xs font-extrabold transition-all shadow-md active:scale-95"
-            title="Switch Portal Role (Google Classroom Style)">
+            title={t('switch_portal_role')}>
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             <span className="capitalize flex items-center gap-1">
-              {user?.role === 'officer' ? '🏛️ Govt Officer View' : user?.role === 'extension' ? '🧑‍🌾 Field Officer View' : '🌾 Farmer View'}
+              {user?.role === 'officer' ? t('officer_view') : user?.role === 'extension' ? t('field_view') : t('farmer_view')}
             </span>
             <ChevronDown size={14} className={`transition-transform duration-200 ${showRoleMenu ? 'rotate-180' : ''}`} />
           </button>
@@ -213,8 +213,8 @@ export default function Header() {
           {showRoleMenu && (
             <div className="absolute right-0 mt-2 w-72 glass-card p-3 z-50 animate-slide-up shadow-2xl border border-emerald-500/40 space-y-2">
               <div className="pb-2 border-b border-white/10">
-                <p className="text-xs font-extrabold text-white font-heading">Switch Active Portal Role</p>
-                <p className="text-[10px] text-slate-400">Like Google Classroom (Farmer ↔ Officer)</p>
+                <p className="text-xs font-extrabold text-white font-heading">{t('switch_portal_role')}</p>
+                <p className="text-[10px] text-slate-400">{t('google_classroom_style')}</p>
               </div>
 
               {/* Farmer Button */}
@@ -227,8 +227,8 @@ export default function Header() {
                 }`}>
                 <span className="text-xl">🌾</span>
                 <div>
-                  <p className="text-xs font-extrabold text-white font-heading">Farmer Portal (शेतकरी)</p>
-                  <p className="text-[10px] text-slate-400">Scan crops, weather alerts & advisories</p>
+                  <p className="text-xs font-extrabold text-white font-heading">{t('farmer_view')}</p>
+                  <p className="text-[10px] text-slate-400">{t('farmer_portal_desc')}</p>
                 </div>
               </button>
 
@@ -242,8 +242,8 @@ export default function Header() {
                 }`}>
                 <span className="text-xl">🧑‍🌾</span>
                 <div>
-                  <p className="text-xs font-extrabold text-white font-heading">Field Officer (कृषी सेवक)</p>
-                  <p className="text-[10px] text-slate-400">Field triage & farmer case visits</p>
+                  <p className="text-xs font-extrabold text-white font-heading">{t('field_view')}</p>
+                  <p className="text-[10px] text-slate-400">{t('field_officer_desc')}</p>
                 </div>
               </button>
 
@@ -257,8 +257,8 @@ export default function Header() {
                 }`}>
                 <span className="text-xl">🏛️</span>
                 <div>
-                  <p className="text-xs font-extrabold text-white font-heading">Govt Agriculture Officer</p>
-                  <p className="text-[10px] text-slate-400">Track state farmer complaints & hotspots</p>
+                  <p className="text-xs font-extrabold text-white font-heading">{t('officer_view')}</p>
+                  <p className="text-[10px] text-slate-400">{t('officer_portal_desc')}</p>
                 </div>
               </button>
             </div>

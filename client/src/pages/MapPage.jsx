@@ -16,7 +16,7 @@ function MapFlyTo({ center, useMap }) {
 }
 
 export default function MapPage() {
-  const { t, showToast, language } = useApp();
+  const { t, T, showToast, language } = useApp();
   const { user } = useAuth();
   const [selectedCrop, setSelectedCrop] = useState('all');
   const [selectedDisease, setSelectedDisease] = useState('all');
@@ -226,8 +226,8 @@ export default function MapPage() {
                   <MapPin size={18} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-bold text-white text-sm truncate font-heading">{r.disease}</p>
-                  <p className="text-xs text-surface-400 mt-0.5">{r.crop_type.toUpperCase()} • {r.district}</p>
+                  <p className="font-bold text-white text-sm truncate font-heading"><T text={r.disease} /></p>
+                  <p className="text-xs text-surface-400 mt-0.5"><T text={r.crop_type?.toUpperCase()} /> • <T text={r.district} /></p>
                   {dist && <p className="text-[11px] text-blue-300 font-bold mt-0.5 flex items-center gap-1"><Navigation size={10} /> {dist} km away</p>}
                 </div>
                 <div className="text-right shrink-0">
