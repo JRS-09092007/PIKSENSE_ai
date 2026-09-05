@@ -74,7 +74,7 @@ export default function Header() {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="font-extrabold text-white text-base tracking-tight font-heading">
-              pikSense <span className="text-emerald-400">AI</span>
+              पीक<span className="text-emerald-400">Sense</span>
             </h1>
             {isOfficer ? (
               <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold">

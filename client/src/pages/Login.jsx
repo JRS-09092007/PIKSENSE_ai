@@ -62,7 +62,7 @@ export default function Login() {
             <Sparkles size={32} className="text-white" />
           </div>
           <h1 className="text-2xl font-extrabold text-white tracking-tight font-heading">
-            MahaCrop <span className="text-emerald-400">Intellisense</span>
+            पीक<span className="text-emerald-400">Sense</span>
           </h1>
           <p className="text-slate-400 text-xs mt-1">Select your account portal role to log in</p>
         </div>

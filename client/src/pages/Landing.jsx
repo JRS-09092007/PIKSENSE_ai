@@ -24,7 +24,7 @@ export default function Landing() {
           </div>
           <div>
             <h1 className="font-extrabold text-white text-lg tracking-tight font-heading">
-              MahaCrop <span className="text-emerald-400">Intellisense</span>
+              पीक<span className="text-emerald-400">Sense</span>
             </h1>
             <p className="text-[10px] text-emerald-300/80 font-bold uppercase tracking-wider">
               Govt of Maharashtra • SIH Problem Statement 26131
@@ -232,7 +232,7 @@ export default function Landing() {
 
       {/* Footer */}
       <footer className="mt-auto px-6 py-6 border-t border-white/10 text-center text-xs text-slate-500 font-medium">
-        <p>MahaCrop Intellisense — Smart India Hackathon Prototype • Problem Statement 26131</p>
+        <p>पीकSense — Smart India Hackathon Prototype • Problem Statement 26131</p>
         <p className="mt-1 text-[11px] text-slate-600">Department of Agriculture, Government of Maharashtra</p>
       </footer>
     </div>
