@@ -294,25 +294,25 @@ export const demoSamples = [
     id: 'sample_mango',
     crop: 'mango',
     title: 'Mango Anthracnose Leaf Spot',
-    url: 'https://images.unsplash.com/photo-1595855759920-86582396756a?q=80&w=800&auto=format&fit=crop'
+    url: 'https://www.greenlife.co.ke/mango-anthracnose/'
   },
   {
     id: 'sample_rice',
     crop: 'rice',
     title: 'Rice Blast Disease (Magnaporthe)',
-    url: 'https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?q=80&w=800&auto=format&fit=crop'
+    url: 'https://share.google/dlreS9WSFTNSeUO3D'
   },
   {
     id: 'sample_wheat',
     crop: 'wheat',
     title: 'Wheat Stripe Rust (Puccinia)',
-    url: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=800&auto=format&fit=crop'
+    url: 'https://share.google/J3E6e2nEnN0kB2kr1'
   },
   {
     id: 'sample_tomato',
     crop: 'tomato',
     title: 'Tomato Late Blight Infection',
-    url: 'https://images.unsplash.com/photo-1592841200221-a6898f307baa?q=80&w=800&auto=format&fit=crop'
+    url: 'https://share.google/6fByz60cqV2ZjSL5w'
   }
 ];
 
