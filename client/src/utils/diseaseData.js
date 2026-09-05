@@ -1,3 +1,8 @@
+import mangoImg from '../scan-samples/mango.jpg';
+import riceImg from '../scan-samples/rice.jpg';
+import wheatImg from '../scan-samples/wheat.jpg';
+import tomatoImg from '../scan-samples/tomato.jpg';
+
 export const diseaseKnowledge = [
   // ── MANGO ────────────────────────────────────────────────────────────────
   {
@@ -294,25 +299,25 @@ export const demoSamples = [
     id: 'sample_mango',
     crop: 'mango',
     title: 'Mango Anthracnose Leaf Spot',
-    url: 'client/src/scsan-samples/mango.jpg'
+    url: mangoImg
   },
   {
     id: 'sample_rice',
     crop: 'rice',
     title: 'Rice Blast Disease (Magnaporthe)',
-    url: 'https://share.google/dlreS9WSFTNSeUO3D'
+    url: riceImg
   },
   {
     id: 'sample_wheat',
     crop: 'wheat',
     title: 'Wheat Stripe Rust (Puccinia)',
-    url: 'https://share.google/J3E6e2nEnN0kB2kr1'
+    url: wheatImg
   },
   {
     id: 'sample_tomato',
     crop: 'tomato',
     title: 'Tomato Late Blight Infection',
-    url: 'https://share.google/6fByz60cqV2ZjSL5w'
+    url: tomatoImg
   }
 ];
 
