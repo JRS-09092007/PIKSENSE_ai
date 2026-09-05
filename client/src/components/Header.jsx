@@ -65,40 +65,40 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-30 w-full glass-header px-4 sm:px-8 py-3 flex items-center justify-between">
+    <header className="sticky top-0 z-30 w-full glass-header px-3 sm:px-8 py-2.5 flex items-center justify-between gap-2 overflow-x-hidden">
       {/* Brand Logo & Location Metadata */}
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-md glow-emerald shrink-0 border border-white/20">
-          <Sparkles size={20} />
+      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-md glow-emerald shrink-0 border border-white/20">
+          <Sparkles size={18} />
         </div>
         <div>
-          <div className="flex items-center gap-2">
-            <h1 className="font-extrabold text-white text-base tracking-tight font-heading">
+          <div className="flex items-center gap-1.5">
+            <h1 className="font-extrabold text-white text-sm sm:text-base tracking-tight font-heading">
               पीक<span className="text-emerald-400">Sense</span>
             </h1>
             {isOfficer ? (
-              <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold">
-                <Building2 size={12} className="text-amber-400" /> {t('officer_portal')}
+              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[10px] font-bold">
+                <Building2 size={11} className="text-amber-400" /> {t('officer_portal')}
               </span>
             ) : (
-              <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
-                <Activity size={12} className="text-emerald-400 animate-pulse" /> 88% {t('health_index')}
+              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+                <Activity size={11} className="text-emerald-400 animate-pulse" /> 88%
               </span>
             )}
           </div>
-          <p className="text-xs text-surface-400 flex items-center gap-1 font-medium mt-0.5">
-            <MapPin size={12} className="text-emerald-400" /> <T text={user?.region || 'Ratnagiri'} />, <T text={user?.state || 'Maharashtra'} />
+          <p className="text-[11px] text-surface-400 flex items-center gap-0.5 font-medium">
+            <MapPin size={11} className="text-emerald-400" /> <T text={user?.region || 'Ratnagiri'} />
           </p>
         </div>
       </div>
 
       {/* Header Controls Bar */}
-      <div className="flex items-center gap-2 sm:gap-3">
+      <div className="flex items-center gap-1.5 sm:gap-2.5">
         {/* Voice Assistant Header Trigger Button */}
         <button
           onClick={() => setIsVoiceOpen(true)}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 font-bold border border-emerald-500/30 text-xs transition-all active:scale-95 glow-emerald">
-          <Mic size={15} className="text-emerald-400 animate-pulse" />
+          className="flex items-center gap-1 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl sm:rounded-2xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 font-bold border border-emerald-500/30 text-xs transition-all active:scale-95 glow-emerald">
+          <Mic size={14} className="text-emerald-400 animate-pulse" />
           <span className="hidden sm:inline">{t('ask_voice')}</span>
         </button>
 
@@ -106,25 +106,22 @@ export default function Header() {
         <div ref={notifRef} className="relative">
           <button
             onClick={() => setShowNotifications(!showNotifications)}
-            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-2xl flex items-center justify-center transition-all relative border ${
+            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl flex items-center justify-center transition-all relative border ${
               showNotifications
                 ? 'bg-emerald-500/25 text-emerald-300 border-emerald-500/40 glow-emerald'
                 : 'bg-white/5 hover:bg-white/10 text-surface-300 border-white/10'
             }`}>
-            <Bell size={18} />
+            <Bell size={16} />
             {unreadCount > 0 && (
-              <>
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-accent-500 text-white text-[10px] font-extrabold flex items-center justify-center shadow-lg border border-surface-900 animate-pulse">
-                  {unreadCount}
-                </span>
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-accent-400 animate-ping opacity-75" />
-              </>
+              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-accent-500 text-white text-[9px] font-extrabold flex items-center justify-center shadow-lg border border-surface-900 animate-pulse">
+                {unreadCount}
+              </span>
             )}
           </button>
 
           {/* Notifications Popover Modal */}
           {showNotifications && (
-            <div className="absolute right-0 mt-3 w-80 sm:w-96 glass-card p-4 z-50 animate-slide-up shadow-2xl border border-emerald-500/30">
+            <div className="absolute right-0 mt-3 w-72 sm:w-96 glass-card p-4 z-50 animate-slide-up shadow-2xl border border-emerald-500/30">
               <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
                 <div className="flex items-center gap-2">
                   <div className="w-7 h-7 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
@@ -133,11 +130,6 @@ export default function Header() {
                   <h3 className="font-extrabold text-white text-sm font-heading">
                     {t('view_alerts')}
                   </h3>
-                  {unreadCount > 0 && (
-                    <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-accent-500/20 text-accent-300 border border-accent-500/30">
-                      {unreadCount} {t('unread')}
-                    </span>
-                  )}
                 </div>
                 <div className="flex items-center gap-1.5">
                   <button onClick={markAllRead} title={t('mark_all_read')}
@@ -196,76 +188,63 @@ export default function Header() {
           )}
         </div>
 
-        {/* Role Switcher Dropdown */}
+        {/* Compact Mobile Role Switcher Dropdown */}
         <div className="relative" ref={roleRef}>
           <button
             onClick={() => setShowRoleMenu(!showRoleMenu)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 text-xs font-extrabold transition-all shadow-md active:scale-95"
+            className="flex items-center gap-1 px-2 py-1.5 sm:px-3 sm:py-1.5 rounded-xl sm:rounded-2xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 text-xs font-extrabold transition-all shadow-md active:scale-95"
             title={t('switch_portal_role')}>
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span className="capitalize flex items-center gap-1">
+            <span>{user?.role === 'officer' ? '🏛️' : user?.role === 'extension' ? '🧑‍🌾' : '🌾'}</span>
+            <span className="hidden sm:inline capitalize">
               {user?.role === 'officer' ? t('officer_view') : user?.role === 'extension' ? t('field_view') : t('farmer_view')}
             </span>
-            <ChevronDown size={14} className={`transition-transform duration-200 ${showRoleMenu ? 'rotate-180' : ''}`} />
+            <ChevronDown size={12} className={`transition-transform duration-200 ${showRoleMenu ? 'rotate-180' : ''}`} />
           </button>
 
           {/* Role Selection Popover */}
           {showRoleMenu && (
-            <div className="absolute right-0 mt-2 w-72 glass-card p-3 z-50 animate-slide-up shadow-2xl border border-emerald-500/40 space-y-2">
+            <div className="absolute right-0 mt-2 w-64 sm:w-72 glass-card p-3 z-50 animate-slide-up shadow-2xl border border-emerald-500/40 space-y-2">
               <div className="pb-2 border-b border-white/10">
                 <p className="text-xs font-extrabold text-white font-heading">{t('switch_portal_role')}</p>
-                <p className="text-[10px] text-slate-400">{t('google_classroom_style')}</p>
               </div>
 
-              {/* Farmer Button */}
               <button
                 onClick={() => handleSelectRole('farmer', '/dashboard')}
-                className={`w-full p-2.5 rounded-xl text-left border transition-all flex items-center gap-3 ${
-                  user?.role === 'farmer'
-                    ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300'
-                    : 'bg-white/3 border-white/5 text-slate-300 hover:bg-white/8'
+                className={`w-full p-2 rounded-xl text-left border transition-all flex items-center gap-2.5 ${
+                  user?.role === 'farmer' ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300' : 'bg-white/3 border-white/5 text-slate-300'
                 }`}>
-                <span className="text-xl">🌾</span>
+                <span className="text-lg">🌾</span>
                 <div>
                   <p className="text-xs font-extrabold text-white font-heading">{t('farmer_view')}</p>
-                  <p className="text-[10px] text-slate-400">{t('farmer_portal_desc')}</p>
                 </div>
               </button>
 
-              {/* Extension Worker Button */}
               <button
                 onClick={() => handleSelectRole('extension', '/extension-dashboard')}
-                className={`w-full p-2.5 rounded-xl text-left border transition-all flex items-center gap-3 ${
-                  user?.role === 'extension'
-                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
-                    : 'bg-white/3 border-white/5 text-slate-300 hover:bg-white/8'
+                className={`w-full p-2 rounded-xl text-left border transition-all flex items-center gap-2.5 ${
+                  user?.role === 'extension' ? 'bg-blue-500/20 border-blue-500/40 text-blue-300' : 'bg-white/3 border-white/5 text-slate-300'
                 }`}>
-                <span className="text-xl">🧑‍🌾</span>
+                <span className="text-lg">🧑‍🌾</span>
                 <div>
                   <p className="text-xs font-extrabold text-white font-heading">{t('field_view')}</p>
-                  <p className="text-[10px] text-slate-400">{t('field_officer_desc')}</p>
                 </div>
               </button>
 
-              {/* Department Officer Button */}
               <button
                 onClick={() => handleSelectRole('officer', '/admin-dashboard')}
-                className={`w-full p-2.5 rounded-xl text-left border transition-all flex items-center gap-3 ${
-                  user?.role === 'officer'
-                    ? 'bg-amber-500/20 border-amber-500/40 text-amber-300'
-                    : 'bg-white/3 border-white/5 text-slate-300 hover:bg-white/8'
+                className={`w-full p-2 rounded-xl text-left border transition-all flex items-center gap-2.5 ${
+                  user?.role === 'officer' ? 'bg-amber-500/20 border-amber-500/40 text-amber-300' : 'bg-white/3 border-white/5 text-slate-300'
                 }`}>
-                <span className="text-xl">🏛️</span>
+                <span className="text-lg">🏛️</span>
                 <div>
                   <p className="text-xs font-extrabold text-white font-heading">{t('officer_view')}</p>
-                  <p className="text-[10px] text-slate-400">{t('officer_portal_desc')}</p>
                 </div>
               </button>
             </div>
           )}
         </div>
 
-        {/* Multilingual Selector */}
+        {/* Multilingual Selector (EN | हि | म) */}
         <LanguageSwitcher compact />
       </div>
     </header>

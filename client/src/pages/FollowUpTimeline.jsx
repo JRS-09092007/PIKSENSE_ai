@@ -1,26 +1,28 @@
 import { useState } from 'react';
 import { RotateCcw, Calendar, CheckCircle2, Clock, Upload, ArrowRight, ShieldCheck, Activity, Image as ImageIcon } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import mangoaImg from '../scan-samples/mangoa.jpg';
+import mangobImg from '../scan-samples/mangob.jpg';
 
 export default function FollowUpTimeline() {
   const { t, T, showToast } = useApp();
 
   const [activeCase] = useState({
     id: 'CASE-2026-00421',
-    crop: 'Soybean (सोयाबीन)',
-    disease: 'Anthracnose & Leaf Blight',
-    farmLocation: 'Dindori Plot A, Nashik',
+    crop: 'Mango (आंबा - हापूस)',
+    disease: 'Mango Anthracnose Leaf Spot',
+    farmLocation: 'Ratnagiri Orchard Plot #4, Maharashtra',
     startDate: 'Aug 28, 2026',
-    currentStage: 'Day 7 — Expert Post-Treatment Check',
-    recoveryScore: 78,
-    beforeImage: 'https://apps.lucidcentral.org/pppw_v10/images/entities/mango_anthracnose_009/mangoshoot.jpg',
-    afterImage: 'https://images.medicinenet.com/images/article/main_image/emerging-benefits-of-mango-leaves.jpg?output-quality=75',
+    currentStage: 'Day 7 — Post-Treatment Recovery & Cured Verification',
+    recoveryScore: 88,
+    beforeImage: mangobImg,
+    afterImage: mangoaImg,
     steps: [
-      { day: 'Day 0', title: 'Initial Disease Detection', date: '28 Aug', status: 'Completed', desc: 'AI flagged Anthracnose (87% confidence). High humidity alert issued.' },
-      { day: 'Day 2', title: 'IPM Advisory Spray Applied', date: '30 Aug', status: 'Completed', desc: 'Farmer applied Neem oil + Carbendazim 50% WP spray as instructed.' },
-      { day: 'Day 5', title: 'Follow-up Photo Uploaded', date: '02 Sep', status: 'Completed', desc: 'Fresh canopy leaf photo uploaded by farmer. Lesion growth arrested.' },
-      { day: 'Day 7', title: 'Agronomist Progress Review', date: 'Today', status: 'In Progress', desc: 'Expert verified 78% reduction in active fungal spots.' },
-      { day: 'Day 14', title: 'Final Recovery Sign-off', date: '09 Sep', status: 'Upcoming', desc: 'Final crop vigor assessment and yield protection confirmation.' },
+      { day: 'Day 0', title: 'Initial Disease Detection (Severe Infection)', date: '28 Aug', status: 'Completed', desc: 'AI visual scan & field check confirmed active Anthracnose infection (mangob image).' },
+      { day: 'Day 2', title: 'IPM Organic & Fungicide Treatment Spray', date: '30 Aug', status: 'Completed', desc: 'Applied Neem oil + Carbendazim 50% WP spray on affected canopy.' },
+      { day: 'Day 5', title: 'Progress Check & Lesion Growth Arrested', date: '02 Sep', status: 'Completed', desc: 'Canopy inspection recorded stoppage of dark fungal spot expansion.' },
+      { day: 'Day 7', title: 'Cured Canopy Verification', date: 'Today', status: 'Completed', desc: 'Leaf regrowth & 88% recovery verified (mangoa image).' },
+      { day: 'Day 14', title: 'Final Fruit Quality & Yield Protection Sign-off', date: '09 Sep', status: 'Upcoming', desc: 'Final agronomist clearance for harvest quality assurance.' },
     ]
   });
 
@@ -57,7 +59,7 @@ export default function FollowUpTimeline() {
             onClick={handleUploadFollowup}
             className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold shadow-lg transition-all flex items-center gap-1.5 glow-emerald">
             <Upload size={14} />
-            <span>Upload Day 7 Image</span>
+            <span>Upload Follow-up Image</span>
           </button>
         </div>
       </div>
@@ -93,30 +95,30 @@ export default function FollowUpTimeline() {
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Day 0 Before */}
+          {/* Day 0 Before (During Disease - mangob.jpg) */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs font-extrabold">
-              <span className="text-red-400">DAY 0: INITIAL INFECTION</span>
+              <span className="text-red-400">DAY 0: DURING DISEASE INFECTION</span>
               <span className="text-slate-400 font-mono">28 Aug 2026</span>
             </div>
-            <div className="relative rounded-2xl overflow-hidden border border-red-500/40 aspect-video bg-black">
-              <img src={activeCase.beforeImage} alt="Infected Leaf" className="w-full h-full object-cover opacity-90" />
+            <div className="relative rounded-2xl overflow-hidden border border-red-500/40 aspect-video bg-black shadow-xl">
+              <img src={activeCase.beforeImage} alt="Disease Infection (mangob)" className="w-full h-full object-cover" />
               <div className="absolute top-2 left-2 px-2.5 py-1 rounded-lg bg-red-500/80 backdrop-blur-md text-white text-[10px] font-extrabold">
-                Active Anthracnose Lesions
+                Infected Leaf (mangob)
               </div>
             </div>
           </div>
 
-          {/* Day 7 After */}
+          {/* Day 7 After (After Disease Cure - mangoa.jpg) */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs font-extrabold">
-              <span className="text-emerald-400">DAY 7: POST-TREATMENT RECOVERY</span>
+              <span className="text-emerald-400">DAY 7: AFTER DISEASE CURED RECOVERY</span>
               <span className="text-slate-400 font-mono">Today</span>
             </div>
-            <div className="relative rounded-2xl overflow-hidden border border-emerald-500/40 aspect-video bg-black">
-              <img src={activeCase.afterImage} alt="Recovered Leaf" className="w-full h-full object-cover" />
+            <div className="relative rounded-2xl overflow-hidden border border-emerald-500/40 aspect-video bg-black shadow-xl">
+              <img src={activeCase.afterImage} alt="Cured Recovery (mangoa)" className="w-full h-full object-cover" />
               <div className="absolute top-2 left-2 px-2.5 py-1 rounded-lg bg-emerald-500/80 backdrop-blur-md text-white text-[10px] font-extrabold">
-                78% Fungal Spot Healing
+                Cured Leaf Recovery (mangoa)
               </div>
             </div>
           </div>

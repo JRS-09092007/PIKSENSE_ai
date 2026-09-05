@@ -2,9 +2,9 @@ import { useApp } from '../context/AppContext';
 import { Globe } from 'lucide-react';
 
 const languages = [
-  { code: 'en', label: 'English', flag: '🇬🇧' },
-  { code: 'hi', label: 'हिंदी', flag: '🇮🇳' },
-  { code: 'mr', label: 'मराठी', flag: '🇮🇳' },
+  { code: 'en', label: 'English', short: 'EN', flag: '🇬🇧' },
+  { code: 'hi', label: 'हिंदी', short: 'हि', flag: '🇮🇳' },
+  { code: 'mr', label: 'मराठी', short: 'म', flag: '🇮🇳' },
 ];
 
 export default function LanguageSwitcher({ compact = false }) {
@@ -17,15 +17,19 @@ export default function LanguageSwitcher({ compact = false }) {
 
   if (compact) {
     return (
-      <div className="flex items-center gap-1 glass-card-light p-1 rounded-2xl border border-emerald-500/20">
+      <div className="flex items-center p-0.5 rounded-xl bg-black/40 border border-emerald-500/30 shrink-0">
         {languages.map(l => (
-          <button key={l.code} onClick={() => changeLang(l.code, l.label)}
-            className={`px-2.5 py-1 rounded-xl text-xs font-bold transition-all duration-200 ${
+          <button
+            key={l.code}
+            onClick={() => changeLang(l.code, l.label)}
+            className={`px-2 py-1 rounded-lg text-[11px] font-extrabold transition-all duration-200 flex items-center gap-1 ${
               language === l.code
-                ? 'bg-primary-500/30 text-primary-200 shadow-md border border-primary-500/40'
+                ? 'bg-emerald-500 text-white shadow-md glow-emerald'
                 : 'text-surface-300 hover:text-white'
             }`}>
-            {l.flag} {l.code.toUpperCase()}
+            <span>{l.flag}</span>
+            <span className="hidden xs:inline sm:inline">{l.code.toUpperCase()}</span>
+            <span className="inline xs:hidden sm:hidden">{l.short}</span>
           </button>
         ))}
       </div>
@@ -39,7 +43,9 @@ export default function LanguageSwitcher({ compact = false }) {
       </label>
       <div className="grid grid-cols-3 gap-2.5">
         {languages.map(l => (
-          <button key={l.code} onClick={() => changeLang(l.code, l.label)}
+          <button
+            key={l.code}
+            onClick={() => changeLang(l.code, l.label)}
             className={`p-3.5 rounded-2xl border-2 text-center transition-all duration-200 active:scale-95 ${
               language === l.code
                 ? 'border-primary-500/60 bg-primary-500/20 shadow-lg glow-emerald'
