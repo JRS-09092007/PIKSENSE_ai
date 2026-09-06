@@ -96,7 +96,7 @@ export default function Landing() {
         </div>
 
         <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight max-w-4xl leading-tight font-heading">
-          {t('landing_hero_1')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">{t('landing_hero_2')}</span> {t('landing_hero_3')}
+          {t('Detect Crop Diseases')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">{t('Before They Spread')}</span> {t('Protect Your Harvest')}
         </h1>
 
         <p className="mt-6 text-base md:text-lg text-slate-300 max-w-2xl font-medium leading-relaxed">
