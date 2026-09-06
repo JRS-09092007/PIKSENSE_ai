@@ -729,6 +729,164 @@ export const translations = {
   }
 };
 
+// Comprehensive Agricultural Lexicon for exact phrase matching
+export const agriLexicon = {
+  mr: {
+    // Weather & Alerts
+    "Clear Sky": "निरभ्र आकाश",
+    "Partly Cloudy": "अंशतः ढगाळ",
+    "Rain": "पाऊस",
+    "Rainy": "पावसाळी",
+    "Sunny": "प्रखर ऊन",
+    "High Humidity Warning": "अति आर्द्रता इशारा",
+    "Good Weather": "अनुकूल हवामान",
+    "Fungal Outbreak Risk": "बुरशीजन्य रोगाचा धोका",
+    "High Humidity Blight Alert": "अति आर्द्रता करपा इशारा",
+    "Anthracnose Outbreak Alert": "अँथ्रॅक्नोज रोग उद्रेक इशारा",
+    "Agronomist Reply": "कृषी शास्त्रज्ञांचे उत्तर",
+    "Rice Blast Alert": "भात मानमोडी (ब्लास्ट) इशारा",
+    "Anthracnose detected 12km away in Ratnagiri. Spray Neem oil early.": "रत्नागिरीत १२ किमी अंतरावर अँथ्रॅक्नोज आढळला. वेळीच कडुलिंब तेलाची फवारणी करा.",
+    "85% Humidity expected tomorrow — monitor Rice crops for Blast disease.": "उद्या ८५% आर्द्रतेची शक्यता - भात पिकावर ब्लास्ट (मानमोडी) रोगाची पाहणी करा.",
+    "Dr. Sunita Deshmukh verified your Mango scan report with organic cure.": "डॉ. सुनिता देशमुख यांनी तुमच्या आंब्याच्या स्कॅन अहवालाची जैविक उपायासह पडताळणी केली.",
+    "Rice Blast reported in nearby Kolhapur district.": "जवळच्या कोल्हापूर जिल्ह्यात भात मानमोडी रोगाची नोंद झाली.",
+    "High humidity (78%) with warm monsoon temperatures increases risk of Anthracnose, Rice Blast, and Late Blight across orchards and paddies.": "७८% जास्त आर्द्रता व उबदार हवामानामुळे आंबा करपा, भात मानमोडी आणि टोमॅटो करपा रोगाचा धोका वाढला आहे.",
+    "High humidity (78%) with warm temperatures increases risk of fungal diseases.": "७८% जास्त आर्द्रता व उष्ण हवामानामुळे बुरशीजन्य रोगांचा धोका वाढतो.",
+    "Microclimate analysis for your location": "तुमच्या क्षेत्रातील सूक्ष्म हवामान विश्लेषण",
+    "5-Day Agricultural Forecast": "५-दिवसीय कृषी हवामान अंदाज",
+    "3 Crops Protected": "३ पिके सुरक्षित",
+    "Optimal State": "उत्कृष्ट स्थिती",
+    "Health Index": "आरोग्य निर्देशांक",
+
+    // Sample Titles
+    "Mango Anthracnose Leaf Spot": "आंबा करपा रोग (अँथ्रॅक्नोज)",
+    "Rice Blast Disease (Magnaporthe)": "भातावरील मानमोडी / ब्लास्ट रोग",
+    "Wheat Stripe Rust (Puccinia)": "गव्हावरील पिवळा तांबेरा",
+    "Tomato Late Blight Infection": "टोमॅटोवरील उशिरा येणारा करपा",
+
+    // Districts & Regions
+    "Nashik District": "नाशिक जिल्हा",
+    "Nashik Taluka & Surrounding Panchayats": "नाशिक तालुका व परिसरातील पंचायती",
+    "Maharashtra State - Agricultural Division": "महाराष्ट्र राज्य - कृषी विभाग",
+    "Nashik": "नाशिक",
+    "Ratnagiri": "रत्नागिरी",
+    "Pune": "पुणे",
+    "Kolhapur": "कोल्हापूर",
+    "Ludhiana": "लुधियाना",
+    "Amravati": "अमरावती",
+    "Solapur": "सोलापूर",
+    "Chhatrapati Sambhaji Nagar": "छत्रपती संभाजीनगर",
+    "Nagpur": "नागपूर",
+    "Dharashiv": "धाराशिव",
+    "Maharashtra": "महाराष्ट्र",
+
+    // Crops
+    "Mango": "आंबा",
+    "Rice": "भात / तांदूळ",
+    "Wheat": "गहू",
+    "Tomato": "टोमॅटो",
+    "Onion": "कांदा",
+    "Cotton": "कापूस",
+    "Potato": "बटाटा",
+    "Sugarcane": "ऊस",
+    "Banana": "केळी",
+    "Chili": "मिरची",
+    "Soybean": "सोयाबीन",
+    "Groundnut": "भुईमूग",
+
+    // Days & Categories
+    "Today": "आज",
+    "Tomorrow": "उद्या",
+    "Wed": "बुधवार",
+    "Thu": "गुरुवार",
+    "Fri": "शुक्रवार",
+    "Sat": "शनिवार",
+    "Sun": "रविवार",
+    "Mon": "सोमवार",
+    "Tue": "मंगळवार",
+    "all": "सर्व",
+    "outbreak": "रोग उद्रेक",
+    "weather": "हवामान",
+    "expert": "कृषी तज्ञ"
+  },
+  hi: {
+    // Weather & Alerts
+    "Clear Sky": "साफ आसमान",
+    "Partly Cloudy": "आंशिक रूप से बादल",
+    "Rain": "बारिश",
+    "Rainy": "बरसाती",
+    "Sunny": "धूप",
+    "High Humidity Warning": "उच्च आर्द्रता चेतावनी",
+    "Good Weather": "अनुकूल मौसम",
+    "Fungal Outbreak Risk": "कवक प्रकोप का जोखिम",
+    "High Humidity Blight Alert": "उच्च नमी झुलसा अलर्ट",
+    "Anthracnose Outbreak Alert": "एंथ्रेक्नोज प्रकोप चेतावनी",
+    "Agronomist Reply": "कृषि वैज्ञानिक का उत्तर",
+    "Rice Blast Alert": "धान ब्लास्ट रोग चेतावनी",
+    "Anthracnose detected 12km away in Ratnagiri. Spray Neem oil early.": "रत्नागिरी में 12 किमी दूर एंथ्रेक्नोज देखा गया। समय रहते नीम तेल का छिड़काव करें।",
+    "85% Humidity expected tomorrow — monitor Rice crops for Blast disease.": "कल 85% आर्द्रता की संभावना है - धान की फसल में ब्लास्ट रोग की निगरानी करें।",
+    "Dr. Sunita Deshmukh verified your Mango scan report with organic cure.": "डॉ. सुनिता देशमुख ने आपके आम स्कैन रिपोर्ट को जैविक उपचार के साथ सत्यापित किया।",
+    "Rice Blast reported in nearby Kolhapur district.": "पास के कोल्हापुर जिले में धान ब्लास्ट रोग दर्ज किया गया।",
+    "High humidity (78%) with warm monsoon temperatures increases risk of Anthracnose, Rice Blast, and Late Blight across orchards and paddies.": "78% उच्च आर्द्रता और गर्म मानसून तापमान के कारण बागों और खेतों में एंथ्रेक्नोज, धान ब्लास्ट और झुलसा रोग का खतरा बढ़ जाता है।",
+    "High humidity (78%) with warm temperatures increases risk of fungal diseases.": "78% उच्च आर्द्रता और गर्म तापमान से फफूंद जनित रोगों का जोखिम बढ़ता है।",
+    "Microclimate analysis for your location": "आपके खेत का सूक्ष्म जलवायु विश्लेषण",
+    "5-Day Agricultural Forecast": "5-दिवसीय कृषि पूर्वानुमान",
+    "3 Crops Protected": "3 फसलें सुरक्षित",
+    "Optimal State": "उत्कृष्ट स्थिति",
+    "Health Index": "स्वास्थ्य सूचकांक",
+
+    // Sample Titles
+    "Mango Anthracnose Leaf Spot": "आम एंथ्रेक्नोज (काला धब्बा)",
+    "Rice Blast Disease (Magnaporthe)": "धान का ब्लास्ट रोग (झोंका)",
+    "Wheat Stripe Rust (Puccinia)": "गेहूं का पीला रतुआ (हल्दी रोग)",
+    "Tomato Late Blight Infection": "टमाटर का पछेती झुलसा",
+
+    // Districts & Regions
+    "Nashik District": "नासिक जिला",
+    "Nashik Taluka & Surrounding Panchayats": "नासिक तालुका एवं आसपास की पंचायतें",
+    "Maharashtra State - Agricultural Division": "महाराष्ट्र राज्य - कृषि विभाग",
+    "Nashik": "नासिक",
+    "Ratnagiri": "रत्नागिरी",
+    "Pune": "पुणे",
+    "Kolhapur": "कोल्हापुर",
+    "Ludhiana": "लुधियाना",
+    "Amravati": "अमरावती",
+    "Solapur": "सोलापुर",
+    "Chhatrapati Sambhaji Nagar": "छत्रपति संभाजी नगर",
+    "Nagpur": "नागपुर",
+    "Dharashiv": "धाराशिव",
+    "Maharashtra": "महाराष्ट्र",
+
+    // Crops
+    "Mango": "आम",
+    "Rice": "चावल / धान",
+    "Wheat": "गेहूं",
+    "Tomato": "टमाटर",
+    "Onion": "प्याज",
+    "Cotton": "कपास",
+    "Potato": "आलू",
+    "Sugarcane": "गन्ना",
+    "Banana": "केला",
+    "Chili": "मिर्च",
+    "Soybean": "सोयाबीन",
+    "Groundnut": "मूंगफली",
+
+    // Days & Categories
+    "Today": "आज",
+    "Tomorrow": "कल",
+    "Wed": "बुधवार",
+    "Thu": "गुरुवार",
+    "Fri": "शुक्रवार",
+    "Sat": "शनिवार",
+    "Sun": "रविवार",
+    "Mon": "सोमवार",
+    "Tue": "मंगलवार",
+    "all": "सभी",
+    "outbreak": "प्रकोप",
+    "weather": "मौसम",
+    "expert": "विशेषज्ञ"
+  }
+};
+
 // Normalized phrase dictionary map for English raw text -> key
 const phraseToKey = {
   "farmer home": "nav_home",
@@ -765,26 +923,63 @@ const phraseToKey = {
 export const getTranslation = (lang, key) => {
   if (!key || typeof key !== 'string') return key || '';
   const currentLang = lang || 'en';
+  if (currentLang === 'en') return key;
 
-  // 1. Direct dictionary match
+  const trimmedKey = key.trim();
+
+  // 1. Direct agriLexicon lookup
+  if (agriLexicon[currentLang]?.[trimmedKey]) {
+    return agriLexicon[currentLang][trimmedKey];
+  }
+
+  // 2. Direct translations object key lookup
   if (translations[currentLang]?.[key]) {
     return translations[currentLang][key];
   }
 
-  // 2. Normalized snake_case key match
+  // 3. Normalized snake_case key match
   const snakeKey = key.toLowerCase().trim().replace(/[^a-z0-9]+/g, '_');
   if (translations[currentLang]?.[snakeKey]) {
     return translations[currentLang][snakeKey];
   }
 
-  // 3. Match raw English phrase to key mapping
+  // 4. Match raw English phrase to key mapping
   const normalizedPhrase = key.toLowerCase().trim();
   const mappedKey = phraseToKey[normalizedPhrase];
   if (mappedKey && translations[currentLang]?.[mappedKey]) {
     return translations[currentLang][mappedKey];
   }
 
-  // 4. Fallback to English dictionary entry
+  // 5. Dynamic Pattern Matching for Farm Location Greeting
+  if (trimmedKey.startsWith('Your farm location in')) {
+    if (currentLang === 'mr') {
+      return trimmedKey
+        .replace('Your farm location in ', 'तुमच्या शेतात (')
+        .replace(' is showing high productivity. ', ') उत्तम उत्पादन क्षमता दिसत आहे. ')
+        .replace(' active crop diseases detected today.', ' सक्रिय पीक रोग आढळले.')
+        .replace('Ratnagiri', 'रत्नागिरी')
+        .replace('Nashik District', 'नाशिक जिल्हा')
+        .replace('Nashik', 'नाशिक');
+    }
+    if (currentLang === 'hi') {
+      return trimmedKey
+        .replace('Your farm location in ', '')
+        .replace(' is showing high productivity. ', ' में आपका खेत उच्च उत्पादकता दिखा रहा है। ')
+        .replace(' active crop diseases detected today.', ' सक्रिय फसल रोग पाए गए।')
+        .replace('Ratnagiri', 'रत्नागिरी')
+        .replace('Nashik District', 'नासिक जिला')
+        .replace('Nashik', 'नासिक');
+    }
+  }
+
+  // 6. Crop Bullet strings ("Mango • Rice • Tomato")
+  if (trimmedKey.includes('•')) {
+    const parts = trimmedKey.split('•').map(p => p.trim());
+    const translatedParts = parts.map(p => agriLexicon[currentLang]?.[p] || p);
+    return translatedParts.join(' • ');
+  }
+
+  // 7. Fallback to English dictionary entry if missing
   if (translations['en']?.[key]) return translations['en'][key];
   if (translations['en']?.[snakeKey]) return translations['en'][snakeKey];
   if (mappedKey && translations['en']?.[mappedKey]) return translations['en'][mappedKey];
