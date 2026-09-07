@@ -92,7 +92,7 @@ export default function Landing() {
       <section className="relative px-6 pt-16 pb-20 max-w-6xl mx-auto text-center flex flex-col items-center">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-bold mb-6 glow-emerald">
           <Sparkles size={14} className="text-emerald-400 animate-pulse" />
-          <span>{t('landing_badge')}</span>
+          <span>{t('🌱 AI-Powered Crop Intelligence')}</span>
         </div>
 
         <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight max-w-4xl leading-tight font-heading">
@@ -100,7 +100,7 @@ export default function Landing() {
         </h1>
 
         <p className="mt-6 text-base md:text-lg text-slate-300 max-w-2xl font-medium leading-relaxed">
-          {t('landing_hero_subtitle')}
+          {t('Detect crop diseases early, understand local disease hotspots, and take timely action to protect your harvest with AI-powered insights.')}
         </p>
 
         {/* Action Buttons */}
