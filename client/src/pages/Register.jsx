@@ -195,7 +195,7 @@ export default function Register() {
           )}
 
           <div className="grid grid-cols-2 gap-3">
-            <select value={form.state} onChange={e => setForm({ ...form, state: e.target.value, region: '' })} className="glass-input text-xs bg-#14532D">
+            <select value={form.state} onChange={e => setForm({ ...form, state: e.target.value, region: '' })} className="glass-input text-xs bg-surface-900">
               <option value="">Select State</option>
               {STATES.map(s => <option key={s} value={s}>{s}</option>)}
             </select>
